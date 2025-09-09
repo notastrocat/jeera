@@ -1,0 +1,188 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"log"
+	"os"
+	"strings"
+)
+
+func main() {
+	// Load configuration
+	config := LoadConfig()
+	
+	// Validate configuration
+	if !config.Validate() {
+		fmt.Println("Error: Missing required configuration!")
+		fmt.Println("Please create a .env file or set environment variables:")
+		fmt.Println("  JIRA_BASE_URL - Your JIRA instance URL (e.g., https://yourcompany.atlassian.net)")
+		fmt.Println("  JIRA_USERNAME - Your JIRA username/email (e.g., your.email@company.com)")
+		fmt.Println("  JIRA_PAT - Your JIRA Personal Access Token (recommended)")
+		fmt.Println("    OR")
+		fmt.Println("  JIRA_API_TOKEN - Your JIRA API token (legacy)")
+		fmt.Println("")
+		fmt.Println("Option 1 - Create .env file:")
+		fmt.Println("  cp .env.example .env")
+		fmt.Println("  # Edit .env file with your actual values")
+		fmt.Println("")
+		fmt.Println("Option 2 - Use environment variables:")
+		fmt.Println("  export JIRA_BASE_URL=https://yourcompany.atlassian.net")
+		fmt.Println("  export JIRA_USERNAME=your.email@company.com")
+		fmt.Println("  export JIRA_PAT=your-personal-access-token")
+		os.Exit(1)
+	}
+
+	// Create JIRA client
+	client := NewJiraClient(config)
+
+	// Start interactive CLI
+	fmt.Println("JIRA Auto - Issue Management Tool")
+	fmt.Println("=================================")
+	fmt.Printf("Connected to: %s\n", config.BaseURL)
+	fmt.Printf("Username: %s\n", config.Username)
+	if config.UsePAT {
+		fmt.Printf("Authentication: Personal Access Token (Bearer)\n\n")
+	} else {
+		fmt.Printf("Authentication: API Token (Basic)\n\n")
+	}
+
+	scanner := bufio.NewScanner(os.Stdin)
+
+	for {
+		fmt.Println("Available commands:")
+		fmt.Println("  1. Create issue")
+		fmt.Println("  2. Get issue")
+		fmt.Println("  3. Update issue")
+		fmt.Println("  4. Exit")
+		fmt.Print("\nEnter your choice (1-4): ")
+
+		scanner.Scan()
+		choice := strings.TrimSpace(scanner.Text())
+
+		switch choice {
+		case "1":
+			createIssueInteractive(client, scanner)
+		case "2":
+			getIssueInteractive(client, scanner)
+		case "3":
+			updateIssueInteractive(client, scanner)
+		case "4":
+			fmt.Println("Goodbye!")
+			return
+		default:
+			fmt.Println("Invalid choice. Please enter 1-4.")
+		}
+
+		fmt.Println()
+	}
+}
+
+func createIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
+	fmt.Println("\n--- Create New Issue ---")
+	
+	fmt.Print("Project Key: ")
+	scanner.Scan()
+	projectKey := strings.TrimSpace(scanner.Text())
+	
+	fmt.Print("Issue Type (e.g., Bug, Task, Story): ")
+	scanner.Scan()
+	issueType := strings.TrimSpace(scanner.Text())
+	
+	fmt.Print("Summary: ")
+	scanner.Scan()
+	summary := strings.TrimSpace(scanner.Text())
+	
+	fmt.Print("Description (optional): ")
+	scanner.Scan()
+	description := strings.TrimSpace(scanner.Text())
+
+	issue := &Issue{
+		Fields: IssueFields{
+			Project: Project{
+				Key: projectKey,
+			},
+			IssueType: IssueType{
+				Name: issueType,
+			},
+			Summary:     summary,
+			Description: description,
+		},
+	}
+
+	result, err := client.CreateIssue(issue)
+	if err != nil {
+		log.Printf("Error creating issue: %v", err)
+		return
+	}
+
+	fmt.Printf("✅ Issue created successfully!\n")
+	fmt.Printf("Key: %s\n", result.Key)
+	fmt.Printf("ID: %s\n", result.ID)
+}
+
+func getIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
+	fmt.Println("\n--- Get Issue ---")
+	
+	fmt.Print("Issue ID or Key: ")
+	scanner.Scan()
+	issueIDOrKey := strings.TrimSpace(scanner.Text())
+
+	issue, err := client.GetIssue(issueIDOrKey)
+	if err != nil {
+		log.Printf("Error getting issue: %v", err)
+		return
+	}
+
+	fmt.Printf("✅ Issue retrieved successfully!\n")
+	fmt.Printf("Key: %s\n", issue.Key)
+	fmt.Printf("ID: %s\n", issue.ID)
+	fmt.Printf("Summary: %s\n", issue.Fields.Summary)
+	fmt.Printf("Description: %s\n", issue.Fields.Description)
+	fmt.Printf("Issue Type: %s\n", issue.Fields.IssueType.Name)
+	fmt.Printf("Project: %s\n", issue.Fields.Project.Key)
+	if issue.Fields.Status != nil {
+		fmt.Printf("Status: %s\n", issue.Fields.Status.Name)
+	}
+	if issue.Fields.Priority != nil {
+		fmt.Printf("Priority: %s\n", issue.Fields.Priority.Name)
+	}
+}
+
+func updateIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
+	fmt.Println("\n--- Update Issue ---")
+	
+	fmt.Print("Issue ID or Key: ")
+	scanner.Scan()
+	issueIDOrKey := strings.TrimSpace(scanner.Text())
+	
+	fmt.Print("New Summary (leave empty to keep current): ")
+	scanner.Scan()
+	summary := strings.TrimSpace(scanner.Text())
+	
+	fmt.Print("New Description (leave empty to keep current): ")
+	scanner.Scan()
+	description := strings.TrimSpace(scanner.Text())
+
+	// Build update fields
+	fields := IssueFields{}
+	if summary != "" {
+		fields.Summary = summary
+	}
+	if description != "" {
+		fields.Description = description
+	}
+
+	if fields.Summary == "" && fields.Description == "" {
+		fmt.Println("No changes specified.")
+		return
+	}
+
+	err := client.UpdateIssue(issueIDOrKey, fields)
+	if err != nil {
+		log.Printf("Error updating issue: %v", err)
+		return
+	}
+
+	fmt.Printf("✅ Issue %s updated successfully!\n", issueIDOrKey)
+}
