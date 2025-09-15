@@ -1,0 +1,4 @@
+- need to fix transition based on *required* fields.
+- a function for assignee
+- function(s) for comments - these are part of each issue.
+- handle linked issues

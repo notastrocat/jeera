@@ -6,7 +6,10 @@ import (
 	"log"
 	"os"
 	"strings"
+	"flag"
 )
+
+var DEBUGflag = flag.Bool("debug", false, "enable debugging messages for the app")
 
 func main() {
 	// Load configuration
@@ -36,8 +39,13 @@ func main() {
 	// Create JIRA client
 	client := NewJiraClient(config)
 
+	flag.Parse()
 	// Start interactive CLI
-	fmt.Println("JIRA Auto - Issue Management Tool")
+	if *DEBUGflag {
+		fmt.Println("JIRA Auto - Issue Management Tool (Running in Debug Mode)")
+	} else {
+		fmt.Println("JIRA Auto - Issue Management Tool")
+	}
 	fmt.Println("=================================")
 	fmt.Printf("Connected to: %s\n", config.BaseURL)
 	fmt.Printf("Username: %s\n", config.Username)
@@ -54,8 +62,11 @@ func main() {
 		fmt.Println("  1. Create issue")
 		fmt.Println("  2. Get issue")
 		fmt.Println("  3. Update issue")
-		fmt.Println("  4. Exit")
-		fmt.Print("\nEnter your choice (1-4): ")
+		fmt.Println("  4. Transition issue")
+		fmt.Println("  5. Delete issue")
+		fmt.Println("  6. Bulk create issues")
+		fmt.Println("  7. Exit")
+		fmt.Print("\nEnter your choice (1-7): ")
 
 		scanner.Scan()
 		choice := strings.TrimSpace(scanner.Text())
@@ -68,6 +79,14 @@ func main() {
 		case "3":
 			updateIssueInteractive(client, scanner)
 		case "4":
+			doTransitionInteractive(client, scanner)
+		case "5":
+			fmt.Println("not implemented yet")
+			// updateIssueInteractive(client, scanner)
+		case "6":
+			fmt.Println("not implemented yet")
+			// updateIssueInteractive(client, scanner)
+		case "7":
 			fmt.Println("Goodbye!")
 			return
 		default:
@@ -185,4 +204,49 @@ func updateIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
 	}
 
 	fmt.Printf("✅ Issue %s updated successfully!\n", issueIDOrKey)
+}
+
+func doTransitionInteractive(client *JiraClient, scanner *bufio.Scanner) {
+	fmt.Println("\n--- Transition Issue ---")
+
+	fmt.Print("Issue ID or Key: ")
+	scanner.Scan()
+	issueIDOrKey := strings.TrimSpace(scanner.Text())
+
+	// Fetch available transitions
+	transitions, err := client.GetTransitions(issueIDOrKey)
+	if err != nil {
+		log.Printf("Error fetching transitions: %v", err)
+		return
+	}
+
+	if len(transitions) == 0 {
+		fmt.Println("No transitions available for this issue.")
+		return
+	}
+
+	fmt.Println("Available Transitions:")
+	for i, t := range transitions {
+		fmt.Printf("  %d. %s (ID: %s)\n", i+1, t.Name, t.ID)
+	}
+
+	fmt.Print("\nSelect transition number: ")
+	scanner.Scan()
+	choiceStr := strings.TrimSpace(scanner.Text())
+	var choice int
+	_, err = fmt.Sscanf(choiceStr, "%d", &choice)
+	if err != nil || choice < 1 || choice > len(transitions) {
+		fmt.Println("Invalid choice.")
+		return
+	}
+
+	selectedTransition := transitions[choice-1]
+
+	err = client.DoTransition(issueIDOrKey, selectedTransition.ID)
+	if err != nil {
+		log.Printf("Error performing transition: %v", err)
+		return
+	}
+
+	fmt.Printf("✅ Issue %s transitioned to '%s' successfully!\n", issueIDOrKey, selectedTransition.Name)
 }
