@@ -44,3 +44,5 @@
 `assignee`: has something called *autoCompleteUrl*. Can it be used as a query to assign it to some user?
 
 `issuetype`: has it's *operations* array empty. maybe I cannot change the issue type via this endpoint?
+
+## IssueKey/comments

@@ -28,21 +28,22 @@ func NewJiraClient(config *Config) *JiraClient {
 
 // Issue represents a JIRA issue structure
 type Issue struct {
-	ID     string      `json:"id,omitempty"`
-	Key    string      `json:"key,omitempty"`
-	Fields IssueFields `json:"fields"`
+	ID        string       `json:"id,omitempty"`
+	Key       string       `json:"key,omitempty"`
+	Fields    IssueFields  `json:"fields"`
 }
 
 // IssueFields represents the fields of a JIRA issue
 type IssueFields struct {
 	Summary              string      `json:"summary"`
-	Description          string      `json:"description,omitempty"`
-	IssueType            IssueType   `json:"issuetype,omitempty"`
-	Project              Project     `json:"project,omitempty"`
+	Description          string      `json:"description"`
+	IssueType            *IssueType  `json:"issuetype,omitempty"`
+	Project              *Project    `json:"project,omitempty"`
 	Priority             *Priority   `json:"priority,omitempty"`
 	Status               *Status     `json:"status,omitempty"`
-	AcceptanceCriteria   string      `json:"customfield_11028,omitempty"`  // Replace with your actual custom field ID
-	StoryPoints          float32     `json:"customfield_10002,omitempty"`  // Replace with your actual custom field ID
+	AcceptanceCriteria   string      `json:"customfield_11028"`  // Replace with your actual custom field ID
+	StoryPoints          float32     `json:"customfield_10002"`  // Replace with your actual custom field ID
+	Assignee             *Assignee   `json:"assignee,omitempty"`
 }
 
 // IssueType represents a JIRA issue type
@@ -85,6 +86,11 @@ type CreateIssueResponse struct {
 type Transition struct {
 	ID   string `json:"id"`
 	Name string `json:"name"`
+}
+
+type Assignee struct {
+	Name         string  `json:"name"`
+	DisplayName  string  `json:"displayName,omitempty"`
 }
 
 // makeRequest performs an HTTP request with authentication
@@ -169,6 +175,32 @@ func (client *JiraClient) GetIssue(issueIDOrKey string) (*Issue, error) {
 	}
 
 	return &issue, nil
+}
+
+func (client *JiraClient) UpdateAssignee(issueIDOrKey string, assignee *Assignee) error {
+	updateRequest := make(map[string]string)
+	if assignee != nil {
+		updateRequest["name"] = assignee.Name
+	}
+
+	// updateRequest := map[string]interface{}{
+	// 	"fields": updateFields,
+	// }
+
+	endpoint := fmt.Sprintf("/rest/api/2/issue/%s/assignee", issueIDOrKey)
+
+	resp, err := client.makeRequest("PUT", endpoint, updateRequest)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusNoContent {
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		return fmt.Errorf("failed to update assignee: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+	}
+
+	return nil
 }
 
 // UpdateIssue updates an existing JIRA issue

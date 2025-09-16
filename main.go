@@ -119,10 +119,10 @@ func createIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
 
 	issue := &Issue{
 		Fields: IssueFields{
-			Project: Project{
+			Project: &Project{
 				Key: projectKey,
 			},
-			IssueType: IssueType{
+			IssueType: &IssueType{
 				Name: issueType,
 			},
 			Summary:     summary,
@@ -160,7 +160,7 @@ func getIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
 	fmt.Printf("Summary: %s\n", issue.Fields.Summary)
 	fmt.Printf("Description: %s\n", issue.Fields.Description)
 	fmt.Printf("Issue Type: %s\n", issue.Fields.IssueType.Name)
-	fmt.Printf("Project: %s\n", issue.Fields.Project.Key)
+	fmt.Printf("Assignee: %s\n", issue.Fields.Assignee.DisplayName)
 	if issue.Fields.Status != nil {
 		fmt.Printf("Status: %s\n", issue.Fields.Status.Name)
 	}
@@ -193,6 +193,10 @@ func updateIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
 	// storyPoints should be an integer
 	storyPoints := strings.TrimSpace(scanner.Text())
 
+	fmt.Print("New Assignee ID (leave empty to keep current): ")
+	scanner.Scan()
+	assignee := strings.TrimSpace(scanner.Text())
+
 	// Build update fields
 	fields := IssueFields{}
 	if summary != "" {
@@ -210,6 +214,16 @@ func updateIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
 		} else {
 			fields.StoryPoints = float32(sp)
 		}
+	}
+	if assignee != "" {
+		tmpAssignee := &Assignee{}
+		tmpAssignee.Name = assignee
+
+		if err := client.UpdateAssignee(issueIDOrKey, tmpAssignee); err != nil {
+			log.Printf("Error updating assignee: %v", err)
+			return
+		}
+		fmt.Printf("✅ Issue %s assigned to %s successfully!\n", issueIDOrKey, assignee)
 	}
 
 	if fields.Summary == "" && fields.Description == "" && fields.AcceptanceCriteria == "" && fields.StoryPoints <= 0.0 {
