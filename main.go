@@ -64,7 +64,7 @@ func main() {
 		fmt.Println("  2. Get issue")
 		fmt.Println("  3. Update issue")
 		fmt.Println("  4. Transition issue")
-		fmt.Println("  5. Delete issue")
+		fmt.Println("  5. Get comments")
 		fmt.Println("  6. Bulk create issues")
 		fmt.Println("  7. Exit")
 		fmt.Print("\nEnter your choice (1-7): ")
@@ -82,8 +82,7 @@ func main() {
 		case "4":
 			doTransitionInteractive(client, scanner)
 		case "5":
-			fmt.Println("not implemented yet")
-			// updateIssueInteractive(client, scanner)
+			getCommentsInteractive(client, scanner)
 		case "6":
 			fmt.Println("not implemented yet")
 			// updateIssueInteractive(client, scanner)
@@ -283,4 +282,33 @@ func doTransitionInteractive(client *JiraClient, scanner *bufio.Scanner) {
 	}
 
 	fmt.Printf("✅ Issue %s transitioned to '%s' successfully!\n", issueIDOrKey, selectedTransition.Name)
+}
+
+func getCommentsInteractive(client *JiraClient, scanner *bufio.Scanner) {
+	fmt.Println("\n--- Get Comments ---")
+
+	fmt.Print("Issue ID or Key: ")
+	scanner.Scan()
+	issueIDOrKey := strings.TrimSpace(scanner.Text())
+
+	comments, err := client.GetComments(issueIDOrKey)
+	if err != nil {
+		log.Printf("Error getting comments: %v", err)
+		return
+	}
+
+	if len(comments) == 0 {
+		fmt.Println("No comments found for this issue.")
+		return
+	}
+
+	fmt.Printf("✅ Comments retrieved successfully! Total: %d\n", len(comments))
+	for _, c := range comments {
+		fmt.Printf("\nCommentID %s\n", c.ID)
+		fmt.Printf("Author: %s\n", c.Author)
+		fmt.Printf("Created: %s\n", c.Created)
+		fmt.Printf("Last Updated: %s\n", c.LastUpdated)
+		//          Last Updated: 2025-09-08T11:18:04.666+0200 -> longest field
+		fmt.Printf("------------------------------------------\n%s\n\n", c.Body)
+	}
 }

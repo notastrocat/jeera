@@ -93,6 +93,15 @@ type Assignee struct {
 	DisplayName  string  `json:"displayName,omitempty"`
 }
 
+type Comment struct {
+	ID      	 string  `json:"id,omitempty"`
+	Body         string  `json:"body"`
+	Author       string  `json:"author,omitempty"`
+	Created      string  `json:"created,omitempty"`
+	LastUpdated  string  `json:"updated,omitempty"`
+	TimeZone     string  `json:"timeZone,omitempty"`
+}
+
 // makeRequest performs an HTTP request with authentication
 func (client *JiraClient) makeRequest(method, endpoint string, body interface{}) (*http.Response, error) {
 	var reqBody io.Reader
@@ -346,4 +355,72 @@ func (client *JiraClient) DoTransition(issueIDOrKey , transitionID string) error
 	}
 
 	return nil
+}
+
+func (client *JiraClient) GetComments(issueIDOrKey string) ([]Comment, error) {
+	endpoint := fmt.Sprintf("/rest/api/2/issue/%s/comment", issueIDOrKey)
+
+	resp, err := client.makeRequest("GET", endpoint, nil)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		return nil, fmt.Errorf("failed to get comments: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+	}
+
+	var result []Comment
+	var temp struct {
+		Comments []map[string]interface{} `json:"comments"`
+	}
+
+	if *DEBUGflag {
+		fmt.Println("GetComments response:")
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		fmt.Println(string(bodyBytes))
+		// Rewind the response body for decoding
+		resp.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+	}
+
+	if err := json.NewDecoder(resp.Body).Decode(&temp); err != nil {
+		return nil, fmt.Errorf("failed to decode response: %v", err)
+	}
+
+	/*
+	    "body": "Change 501887 had a related patch set uploaded by Sharma, Archit:\n[GTJ-691] enable QNX_IPC for ACF bindings\n\n[https://gitgerrit.asux.aptiv.com/c/ux/ispfw/core/+/501887|https://gitgerrit.asux.aptiv.com/c/ux/ispfw/core/+/501887]",
+		"updateAuthor": {
+			"self": "https://jiraprod.aptiv.com/rest/api/2/user?username=GID_GERRITJIRA",
+			"name": "GID_GERRITJIRA",
+			"key": "JIRAUSER176187",
+			"emailAddress": "",
+			"avatarUrls": {
+			"48x48": "https://jiraprod.aptiv.com/secure/useravatar?avatarId=11426",
+			"24x24": "https://jiraprod.aptiv.com/secure/useravatar?size=small&avatarId=11426",
+			"16x16": "https://jiraprod.aptiv.com/secure/useravatar?size=xsmall&avatarId=11426",
+			"32x32": "https://jiraprod.aptiv.com/secure/useravatar?size=medium&avatarId=11426"
+			},
+			"displayName": "GID_GERRITJIRA",
+			"active": true,
+			"timeZone": "Europe/Amsterdam"
+		},
+		"created": "2025-09-08T07:49:29.479+0200",
+		"updated": "2025-09-08T07:49:29.479+0200"
+	*/
+
+	for _, c := range temp.Comments {
+		authorMeta := c["updateAuthor"].(map[string]interface{})
+
+		result = append(result, Comment{
+			ID:		     c["id"].(string),
+			Body:        c["body"].(string),
+			Author:      authorMeta["displayName"].(string),
+			Created:     c["created"].(string),
+			LastUpdated: c["updated"].(string),
+			TimeZone:    authorMeta["timeZone"].(string),
+		})
+	}
+
+	return result, nil
 }
