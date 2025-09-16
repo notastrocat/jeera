@@ -15,6 +15,22 @@
 }
 ```
 
+```
+"customfield_11028": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textarea",
+        "customId": 11028
+      },
+      "name": "Acceptance Criteria",
+      "fieldId": "customfield_11028",
+      "operations": [
+        "set"
+      ]
+    }
+```
+
 `components.allowedValues -> ` this has a member called `self` which is another URL (but also has a *name* member) - so maybe cache it?
 
 `versions.allowedValues -> ` this has a list of all the release versions planned - this one grows dynamically I believe. [self, name]

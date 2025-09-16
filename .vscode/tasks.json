@@ -2,24 +2,24 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build JIRA Auto",
+            "label": "Build jeera",
             "type": "shell",
             "command": "/home/potato/.local/opt/go/bin/go",
-            "args": ["build", "-o", "jira-auto"],
+            "args": ["build", "-o", "jeera"],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
             "problemMatcher": ["$go"],
-            "detail": "Build the JIRA Auto application"
+            "detail": "Build the jeera application"
         },
         {
-            "label": "Run JIRA Auto",
+            "label": "Run jeera",
             "type": "shell",
-            "command": "./jira-auto",
+            "command": "./jeera",
             "group": "test",
-            "dependsOn": "Build JIRA Auto",
-            "detail": "Build and run the JIRA Auto application"
+            "dependsOn": "Build jeera",
+            "detail": "Build and run the jeera application"
         },
         {
             "label": "Clean Build",

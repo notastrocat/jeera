@@ -35,12 +35,14 @@ type Issue struct {
 
 // IssueFields represents the fields of a JIRA issue
 type IssueFields struct {
-	Summary     string      `json:"summary"`
-	Description string      `json:"description,omitempty"`
-	IssueType   IssueType   `json:"issuetype,omitempty"`
-	Project     Project     `json:"project,omitempty"`
-	Priority    *Priority   `json:"priority,omitempty"`
-	Status      *Status     `json:"status,omitempty"`
+	Summary              string      `json:"summary"`
+	Description          string      `json:"description,omitempty"`
+	IssueType            IssueType   `json:"issuetype,omitempty"`
+	Project              Project     `json:"project,omitempty"`
+	Priority             *Priority   `json:"priority,omitempty"`
+	Status               *Status     `json:"status,omitempty"`
+	AcceptanceCriteria   string      `json:"customfield_11028,omitempty"`  // Replace with your actual custom field ID
+	StoryPoints          float32     `json:"customfield_10002,omitempty"`  // Replace with your actual custom field ID
 }
 
 // IssueType represents a JIRA issue type
@@ -209,16 +211,12 @@ func (client *JiraClient) UpdateIssue(issueIDOrKey string, fields IssueFields) e
         }
         updateFields["priority"] = priority
     }
-	// if fields.Status != nil {
-    //     status := make(map[string]interface{})
-    //     if fields.Status.ID != "" {
-    //         status["id"] = fields.Status.ID
-    //     }
-    //     if fields.Status.Name != "" {
-    //         status["name"] = fields.Status.Name
-    //     }
-    //     updateFields["statuscategory"] = status
-    // }
+	if fields.AcceptanceCriteria != "" {
+		updateFields["customfield_11028"] = fields.AcceptanceCriteria
+	}
+	if fields.StoryPoints >= 0.0 {
+		updateFields["customfield_10002"] = fields.StoryPoints
+	}
 
 	updateRequest := map[string]interface{}{
         "fields": updateFields,

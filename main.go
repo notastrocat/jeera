@@ -2,11 +2,12 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
-	"flag"
 )
 
 var DEBUGflag = flag.Bool("debug", false, "enable debugging messages for the app")
@@ -170,18 +171,27 @@ func getIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
 
 func updateIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
 	fmt.Println("\n--- Update Issue ---")
-	
+
 	fmt.Print("Issue ID or Key: ")
 	scanner.Scan()
 	issueIDOrKey := strings.TrimSpace(scanner.Text())
-	
+
 	fmt.Print("New Summary (leave empty to keep current): ")
 	scanner.Scan()
 	summary := strings.TrimSpace(scanner.Text())
-	
+
 	fmt.Print("New Description (leave empty to keep current): ")
 	scanner.Scan()
 	description := strings.TrimSpace(scanner.Text())
+
+	fmt.Print("New Acceptance Criteria (leave empty to keep current): ")
+	scanner.Scan()
+	acceptanceCriteria := strings.TrimSpace(scanner.Text())
+
+	fmt.Print("New Story Points (leave empty to keep current): ")
+	scanner.Scan()
+	// storyPoints should be an integer
+	storyPoints := strings.TrimSpace(scanner.Text())
 
 	// Build update fields
 	fields := IssueFields{}
@@ -191,8 +201,18 @@ func updateIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
 	if description != "" {
 		fields.Description = description
 	}
+	if acceptanceCriteria != "" {
+		fields.AcceptanceCriteria = acceptanceCriteria
+	}
+	if storyPoints != "" {
+		if sp, err := strconv.ParseFloat(storyPoints, 32); err != nil {
+			fmt.Printf("Invalid story points value: %v\n", err)
+		} else {
+			fields.StoryPoints = float32(sp)
+		}
+	}
 
-	if fields.Summary == "" && fields.Description == "" {
+	if fields.Summary == "" && fields.Description == "" && fields.AcceptanceCriteria == "" && fields.StoryPoints <= 0.0 {
 		fmt.Println("No changes specified.")
 		return
 	}
