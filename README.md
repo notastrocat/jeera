@@ -1,6 +1,6 @@
-# JIRA Auto - Go Application
+# JEERA
 
-A Go application for interacting with JIRA issues through the REST API. This tool allows you to create, retrieve, and update JIRA issues from the command line.
+A Go application for interacting with JIRA issues through the REST API. This tool allows you to create, retrieve, and update JIRA issues from the terminal.
 
 ## Features
 
