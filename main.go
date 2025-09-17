@@ -114,14 +114,45 @@ func main() {
 			}
 			boardID = id
 			fmt.Println("Board ID:", boardID)
+
+			projectKeys, err = client.GetProjectKeys(boardID, projectKeys)
+			if err != nil {
+				log.Printf("Error getting project keys: %v", err)
+				return
+			}
+
+			// needed for JQL at the very least if not for anything else...
+			fmt.Println("Associated Project Keys: -")
+			for i, key := range projectKeys {
+				fmt.Printf("Key %d: %s\n", i+1, key)
+			}
+			// probably select the first entry as the default key for the session...(and maybe ask to change it?)
 		}
 
-		id, name, err := client.GetActiveSprintID(boardID)
+		id, sprintName, err := client.GetActiveSprintID(boardID)
 		if err != nil {
 			log.Printf("Error getting active sprint ID: %v", err)
 			return
 		}
-		fmt.Printf("Active Sprint: %s (ID: %d)\n", name, id)
+		fmt.Printf("Active Sprint: %s (ID: %d)\n", sprintName, id)
+
+		fmt.Println("Your issues in the active sprint:-")
+
+		// change the first parameter to some decided name later
+		myIssues, err := client.GetMyIssuesInActiveSprint(projectKeys[0], sprintName, client.config.Username)
+		if err != nil {
+			log.Printf("Error getting issues in active sprint: %v", err)
+			return
+		}
+
+		var totalStoryPoints float32 = 0.0
+
+		for _, issue := range myIssues {
+			totalStoryPoints += issue.Fields.StoryPoints
+			fmt.Printf("%s\n%s : %.f\n\t%s\n", issue.Key, issue.Fields.Summary, issue.Fields.StoryPoints, issue.Fields.Status.Name)
+			fmt.Printf("--------------------------------\n\n")
+		}
+		fmt.Printf("Total Story Points assigned to you in this sprint: %.f\n\n", totalStoryPoints)
 
 		scanner.Scan()
 		choice := strings.TrimSpace(scanner.Text())

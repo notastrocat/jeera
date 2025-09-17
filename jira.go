@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"time"
 )
 
@@ -28,22 +29,22 @@ func NewJiraClient(config *Config) *JiraClient {
 
 // Issue represents a JIRA issue structure
 type Issue struct {
-	ID        string       `json:"id,omitempty"`
-	Key       string       `json:"key,omitempty"`
-	Fields    IssueFields  `json:"fields"`
+	ID     string      `json:"id,omitempty"`
+	Key    string      `json:"key,omitempty"`
+	Fields IssueFields `json:"fields"`
 }
 
 // IssueFields represents the fields of a JIRA issue
 type IssueFields struct {
-	Summary              string      `json:"summary"`
-	Description          string      `json:"description"`
-	IssueType            *IssueType  `json:"issuetype,omitempty"`
-	Project              *Project    `json:"project,omitempty"`
-	Priority             *Priority   `json:"priority,omitempty"`
-	Status               *Status     `json:"status,omitempty"`
-	AcceptanceCriteria   string      `json:"customfield_11028"`  // Replace with your actual custom field ID
-	StoryPoints          float32     `json:"customfield_10002"`  // Replace with your actual custom field ID
-	Assignee             *Assignee   `json:"assignee,omitempty"`
+	Summary             string      `json:"summary"`
+	Description         string      `json:"description"`
+	IssueType           *IssueType  `json:"issuetype,omitempty"`
+	Project             *Project    `json:"project,omitempty"`
+	Priority            *Priority   `json:"priority,omitempty"`
+	Status              *Status     `json:"status,omitempty"`
+	AcceptanceCriteria  string      `json:"customfield_11028"` // Replace with your actual custom field ID
+	StoryPoints         float32     `json:"customfield_10002"` // Replace with your actual custom field ID
+	Assignee            *Assignee   `json:"assignee,omitempty"`
 }
 
 // IssueType represents a JIRA issue type
@@ -89,23 +90,23 @@ type Transition struct {
 }
 
 type Assignee struct {
-	Name         string  `json:"name"`
-	DisplayName  string  `json:"displayName,omitempty"`
+	Name        string `json:"name"`
+	DisplayName string `json:"displayName,omitempty"`
 }
 
 type Comment struct {
-	ID      	 string  `json:"id,omitempty"`
-	Body         string  `json:"body"`
-	Author       string  `json:"author,omitempty"`
-	Created      string  `json:"created,omitempty"`
-	LastUpdated  string  `json:"updated,omitempty"`
-	TimeZone     string  `json:"timeZone,omitempty"`
+	ID          string `json:"id,omitempty"`
+	Body        string `json:"body"`
+	Author      string `json:"author,omitempty"`
+	Created     string `json:"created,omitempty"`
+	LastUpdated string `json:"updated,omitempty"`
+	TimeZone    string `json:"timeZone,omitempty"`
 }
 
 // makeRequest performs an HTTP request with authentication
 func (client *JiraClient) makeRequest(method, endpoint string, body interface{}) (*http.Response, error) {
 	var reqBody io.Reader
-	
+
 	if body != nil {
 		jsonBody, err := json.Marshal(body)
 		if err != nil {
@@ -143,7 +144,7 @@ func (client *JiraClient) makeRequest(method, endpoint string, body interface{})
 // CreateIssue creates a new JIRA issue
 func (client *JiraClient) CreateIssue(issue *Issue) (*CreateIssueResponse, error) {
 	request := CreateIssueRequest{Fields: issue.Fields}
-	
+
 	resp, err := client.makeRequest("POST", "/rest/api/2/issue", request)
 	if err != nil {
 		return nil, err
@@ -166,7 +167,7 @@ func (client *JiraClient) CreateIssue(issue *Issue) (*CreateIssueResponse, error
 // GetIssue retrieves a JIRA issue by ID or key
 func (client *JiraClient) GetIssue(issueIDOrKey string) (*Issue, error) {
 	endpoint := fmt.Sprintf("/rest/api/2/issue/%s", issueIDOrKey)
-	
+
 	resp, err := client.makeRequest("GET", endpoint, nil)
 	if err != nil {
 		return nil, err
@@ -217,41 +218,41 @@ func (client *JiraClient) UpdateIssue(issueIDOrKey string, fields IssueFields) e
 	updateFields := make(map[string]interface{})
 
 	if fields.Summary != "" {
-        updateFields["summary"] = fields.Summary
-    }
-    if fields.Description != "" {
-        updateFields["description"] = fields.Description
-    }
-    if fields.IssueType.ID != "" || fields.IssueType.Name != "" {
-        issueType := make(map[string]interface{})
-        if fields.IssueType.ID != "" {
-            issueType["id"] = fields.IssueType.ID
-        }
-        if fields.IssueType.Name != "" {
-            issueType["name"] = fields.IssueType.Name
-        }
-        updateFields["issuetype"] = issueType
-    }
-    if fields.Project.Key != "" || fields.Project.ID != "" {
-        project := make(map[string]interface{})
-        if fields.Project.Key != "" {
-            project["key"] = fields.Project.Key
-        }
-        if fields.Project.ID != "" {
-            project["id"] = fields.Project.ID
-        }
-        updateFields["project"] = project
-    }
+		updateFields["summary"] = fields.Summary
+	}
+	if fields.Description != "" {
+		updateFields["description"] = fields.Description
+	}
+	if fields.IssueType.ID != "" || fields.IssueType.Name != "" {
+		issueType := make(map[string]interface{})
+		if fields.IssueType.ID != "" {
+			issueType["id"] = fields.IssueType.ID
+		}
+		if fields.IssueType.Name != "" {
+			issueType["name"] = fields.IssueType.Name
+		}
+		updateFields["issuetype"] = issueType
+	}
+	if fields.Project.Key != "" || fields.Project.ID != "" {
+		project := make(map[string]interface{})
+		if fields.Project.Key != "" {
+			project["key"] = fields.Project.Key
+		}
+		if fields.Project.ID != "" {
+			project["id"] = fields.Project.ID
+		}
+		updateFields["project"] = project
+	}
 	if fields.Priority != nil {
-        priority := make(map[string]interface{})
-        if fields.Priority.ID != "" {
-            priority["id"] = fields.Priority.ID
-        }
-        if fields.Priority.Name != "" {
-            priority["name"] = fields.Priority.Name
-        }
-        updateFields["priority"] = priority
-    }
+		priority := make(map[string]interface{})
+		if fields.Priority.ID != "" {
+			priority["id"] = fields.Priority.ID
+		}
+		if fields.Priority.Name != "" {
+			priority["name"] = fields.Priority.Name
+		}
+		updateFields["priority"] = priority
+	}
 	if fields.AcceptanceCriteria != "" {
 		updateFields["customfield_11028"] = fields.AcceptanceCriteria
 	}
@@ -260,15 +261,15 @@ func (client *JiraClient) UpdateIssue(issueIDOrKey string, fields IssueFields) e
 	}
 
 	updateRequest := map[string]interface{}{
-        "fields": updateFields,
-    }
+		"fields": updateFields,
+	}
 
 	if *DEBUGflag {
 		fmt.Printf("UpdateIssue request: %+v\n", updateRequest)
 	}
-	
+
 	endpoint := fmt.Sprintf("/rest/api/2/issue/%s", issueIDOrKey)
-	
+
 	resp, err := client.makeRequest("PUT", endpoint, updateRequest)
 	if err != nil {
 		return err
@@ -334,7 +335,7 @@ func (client *JiraClient) GetTransitions(issueIDOrKey string) ([]Transition, err
 	return result, nil
 }
 
-func (client *JiraClient) DoTransition(issueIDOrKey , transitionID string) error {
+func (client *JiraClient) DoTransition(issueIDOrKey, transitionID string) error {
 	endpoint := fmt.Sprintf("/rest/api/2/issue/%s/transitions", issueIDOrKey)
 
 	transitionRequest := map[string]interface{}{
@@ -389,31 +390,31 @@ func (client *JiraClient) GetComments(issueIDOrKey string) ([]Comment, error) {
 	}
 
 	/*
-	    "body": "Change 501887 had a related patch set uploaded by Sharma, Archit:\n[GTJ-691] enable QNX_IPC for ACF bindings\n\n[https://gitgerrit.asux.aptiv.com/c/ux/ispfw/core/+/501887|https://gitgerrit.asux.aptiv.com/c/ux/ispfw/core/+/501887]",
-		"updateAuthor": {
-			"self": "https://jiraprod.aptiv.com/rest/api/2/user?username=GID_GERRITJIRA",
-			"name": "GID_GERRITJIRA",
-			"key": "JIRAUSER176187",
-			"emailAddress": "",
-			"avatarUrls": {
-			"48x48": "https://jiraprod.aptiv.com/secure/useravatar?avatarId=11426",
-			"24x24": "https://jiraprod.aptiv.com/secure/useravatar?size=small&avatarId=11426",
-			"16x16": "https://jiraprod.aptiv.com/secure/useravatar?size=xsmall&avatarId=11426",
-			"32x32": "https://jiraprod.aptiv.com/secure/useravatar?size=medium&avatarId=11426"
+		    "body": "Change 501887 had a related patch set uploaded by Sharma, Archit:\n[GTJ-691] enable QNX_IPC for ACF bindings\n\n[https://gitgerrit.asux.aptiv.com/c/ux/ispfw/core/+/501887|https://gitgerrit.asux.aptiv.com/c/ux/ispfw/core/+/501887]",
+			"updateAuthor": {
+				"self": "https://jiraprod.aptiv.com/rest/api/2/user?username=GID_GERRITJIRA",
+				"name": "GID_GERRITJIRA",
+				"key": "JIRAUSER176187",
+				"emailAddress": "",
+				"avatarUrls": {
+				"48x48": "https://jiraprod.aptiv.com/secure/useravatar?avatarId=11426",
+				"24x24": "https://jiraprod.aptiv.com/secure/useravatar?size=small&avatarId=11426",
+				"16x16": "https://jiraprod.aptiv.com/secure/useravatar?size=xsmall&avatarId=11426",
+				"32x32": "https://jiraprod.aptiv.com/secure/useravatar?size=medium&avatarId=11426"
+				},
+				"displayName": "GID_GERRITJIRA",
+				"active": true,
+				"timeZone": "Europe/Amsterdam"
 			},
-			"displayName": "GID_GERRITJIRA",
-			"active": true,
-			"timeZone": "Europe/Amsterdam"
-		},
-		"created": "2025-09-08T07:49:29.479+0200",
-		"updated": "2025-09-08T07:49:29.479+0200"
+			"created": "2025-09-08T07:49:29.479+0200",
+			"updated": "2025-09-08T07:49:29.479+0200"
 	*/
 
 	for _, c := range temp.Comments {
 		authorMeta := c["updateAuthor"].(map[string]interface{})
 
 		result = append(result, Comment{
-			ID:		     c["id"].(string),
+			ID:          c["id"].(string),
 			Body:        c["body"].(string),
 			Author:      authorMeta["displayName"].(string),
 			Created:     c["created"].(string),
@@ -426,7 +427,7 @@ func (client *JiraClient) GetComments(issueIDOrKey string) ([]Comment, error) {
 }
 
 func (client *JiraClient) GetBoardID(boardName string) (int, error) {
-						 // "/rest/agile/1.0/board?name=CoreFW_AutoScrum"
+	// "/rest/agile/1.0/board?name=CoreFW_AutoScrum"
 	endpoint := fmt.Sprintf("/rest/agile/1.0/board?name=%s", boardName)
 
 	resp, err := client.makeRequest("GET", endpoint, nil)
@@ -461,7 +462,7 @@ func (client *JiraClient) GetBoardID(boardName string) (int, error) {
 
 func (client *JiraClient) GetProjectKeys(boardID int, projectKeys []string) ([]string, error) {
 	// interestingly enough, the board ID is an int as opposed to a string like most other IDs in JIRA
-						  // /rest/agile/1.0/board/14190/project
+	// /rest/agile/1.0/board/14190/project
 	endpoint := fmt.Sprintf("/rest/agile/1.0/board/%d/project", boardID)
 
 	resp, err := client.makeRequest("GET", endpoint, nil)
@@ -498,7 +499,7 @@ func (client *JiraClient) GetProjectKeys(boardID int, projectKeys []string) ([]s
 }
 
 func (client *JiraClient) GetActiveSprintID(boardID int) (int, string, error) {
-	endpoint := fmt.Sprintf("/rest/agile/1.0/board/%d/sprint?state=active", boardID)    // amazing, didn't know about this query param.
+	endpoint := fmt.Sprintf("/rest/agile/1.0/board/%d/sprint?state=active", boardID) // amazing, didn't know about this query param.
 
 	resp, err := client.makeRequest("GET", endpoint, nil)
 	if err != nil {
@@ -555,10 +556,11 @@ func (client *JiraClient) GetActiveSprintID(boardID int) (int, string, error) {
 // 	return temp.Issues, nil
 // }
 
-func (client *JiraClient) GetMyIssuesInSprint(sprintID int, assignee string) ([]Issue, error) {
-	jql := fmt.Sprintf("project = GTJ AND sprint = \"%d\" AND assignee in (\"%s\")", sprintID, assignee)
+func (client *JiraClient) GetMyIssuesInActiveSprint(projectKey, sprintID, assignee string) ([]Issue, error) {
+	jql := fmt.Sprintf("project = %s AND sprint = \"%s\" AND assignee in (%s)", projectKey, sprintID, assignee)
+	encodedJQL := url.QueryEscape(jql) // Properly encode the JQL
 
-	endpoint := fmt.Sprintf("/rest/api/2/search?jql=%s", jql)
+	endpoint := fmt.Sprintf("/rest/api/2/search?jql=%s", encodedJQL)
 
 	resp, err := client.makeRequest("GET", endpoint, nil)
 	if err != nil {
