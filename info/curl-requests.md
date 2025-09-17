@@ -11,3 +11,12 @@ curl -G \
     'https://jiraprod.aptiv.com/rest/api/2/search' \
     -d 'fields=key,summary,status' -d 'maxResults=100' | jq .
 ```
+
+### cURL request using the /agile/1.0/ API
+
+- now, there are two approaches, either get the boardID from the board.values.name (will have to search using the below endpoint) OR get the boardID directly, which I highly doubt that people would know of beforehand...I too struggled to find boardID in JIRA GUI.
+
+```
+curl -H "Authorization: Bearer PAT_TOKEN" https://jiraprod.aptiv.com/rest/agile/1.0/board?name=CoreFW_AutoScrum
+ | jq .
+```
