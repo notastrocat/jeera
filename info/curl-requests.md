@@ -1,5 +1,9 @@
 # Sample cURL requests I used to verify the endpoints
 
+```
+curl -H "Authorization: Bearer PAT_TOKEN" https://jiraprod.aptiv.com/rest/api/2/user?username=d472pb | jq . > user.json
+```
+
 ### Request for getting an issue & saving it to a JSON file
 `curl -H "Authorization: Bearer PAT_TOKEN" https://jiraprod.aptiv.com/rest/api/2/issue/GTJ-687 | jq . > issue-687.json`
 
@@ -19,4 +23,17 @@ curl -G \
 ```
 curl -H "Authorization: Bearer PAT_TOKEN" https://jiraprod.aptiv.com/rest/agile/1.0/board?name=CoreFW_AutoScrum
  | jq .
+```
+
+### cURL request to move newly created issues into any sprints...
+```
+curl --request POST \
+  --url 'https://jiraprod.aptiv.com/rest/agile/1.0/sprint/102884/issue' \
+  --header 'Authorization: Bearer PAT_TOKEN' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "issues": [
+    "GTJ-701"
+  ]
+}' | jq .
 ```
