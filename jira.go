@@ -424,4 +424,3 @@ func (client *JiraClient) GetComments(issueIDOrKey string) ([]Comment, error) {
 
 	return result, nil
 }
-

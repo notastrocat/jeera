@@ -66,9 +66,8 @@ func main() {
 		fmt.Println("  4. Transition issue")
 		fmt.Println("  5. Get comments")
 		fmt.Println("  6. Bulk create issues")
-		fmt.Println("  7. Get Active Sprint Tasks")
-		fmt.Println("  8. Exit")
-		fmt.Print("\nEnter your choice (1-8): ")
+		fmt.Println("  7. Exit")
+		fmt.Print("\nEnter your choice (1-7): ")
 
 		scanner.Scan()
 		choice := strings.TrimSpace(scanner.Text())
@@ -88,10 +87,6 @@ func main() {
 			fmt.Println("not implemented yet")
 			// updateIssueInteractive(client, scanner)
 		case "7":
-			getActiveSprintTasksInteractive(client, scanner)
-			// fmt.Println("not implemented yet")
-			// updateIssueInteractive(client, scanner)
-		case "8":
 			fmt.Println("Goodbye!")
 			return
 		default:
@@ -315,58 +310,5 @@ func getCommentsInteractive(client *JiraClient, scanner *bufio.Scanner) {
 		fmt.Printf("Last Updated: %s\n", c.LastUpdated)
 		//          Last Updated: 2025-09-08T11:18:04.666+0200 -> longest field
 		fmt.Printf("------------------------------------------\n%s\n\n", c.Body)
-	}
-}
-
-// I need to later move it out of the options menu, create a flag while starting the application...this would populate the cache as well as get the active sprint tasks for only me (or a specific user: [TODO] later)
-
-func getActiveSprintTasksInteractive(client *JiraClient, scanner *bufio.Scanner) {
-	fmt.Println("\n--- Get Active Sprint Tasks ---")
-
-	fmt.Print("Board ID: ")
-	scanner.Scan()
-	boardIDStr := strings.TrimSpace(scanner.Text())
-	boardID, err := strconv.Atoi(boardIDStr)
-	if err != nil {
-		fmt.Printf("Invalid Board ID: %v\n", err)
-		return
-	}
-
-	sprintID, sprintName, err := client.GetActiveSprintID(boardID)
-	if err != nil {
-		log.Printf("Error getting active sprint: %v", err)
-		return
-	}
-	if sprintID == 0 {
-		fmt.Println("No active sprint found for this board.")
-		return
-	}
-
-	fmt.Printf("Active Sprint: %s (ID: %d)\n", sprintName, sprintID)
-
-	issues, err := client.GetIssuesInSprint(sprintID)
-	if err != nil {
-		log.Printf("Error getting issues in sprint: %v", err)
-		return
-	}
-
-	if len(issues) == 0 {
-		fmt.Println("No issues found in the active sprint.")
-		return
-	}
-
-	fmt.Printf("✅ Issues in Active Sprint retrieved successfully! Total: %d\n", len(issues))
-	for _, issue := range issues {
-		fmt.Printf("\nKey: %s\n", issue.Key)
-		fmt.Printf("ID: %s\n", issue.ID)
-		fmt.Printf("Summary: %s\n", issue.Fields.Summary)
-		if issue.Fields.Status != nil {
-			fmt.Printf("Status: %s\n", issue.Fields.Status.Name)
-		}
-		if issue.Fields.Assignee != nil {
-			fmt.Printf("Assignee: %s\n", issue.Fields.Assignee.DisplayName)
-		} else {
-			fmt.Printf("Assignee: Unassigned\n")
-		}
 	}
 }
