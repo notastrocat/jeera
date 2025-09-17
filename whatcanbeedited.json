@@ -1,0 +1,4964 @@
+{
+  "fields": {
+    "issuetype": {
+      "required": true,
+      "schema": {
+        "type": "issuetype",
+        "system": "issuetype"
+      },
+      "name": "Issue Type",
+      "fieldId": "issuetype",
+      "operations": [],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/issuetype/10001",
+          "id": "10001",
+          "description": "Created by Jira Software - do not edit or delete. Issue type for a user story.",
+          "iconUrl": "https://jiraprod.aptiv.com/secure/viewavatar?size=xsmall&avatarId=14148&avatarType=issuetype",
+          "name": "Story",
+          "subtask": false,
+          "avatarId": 14148
+        }
+      ]
+    },
+    "summary": {
+      "required": true,
+      "schema": {
+        "type": "string",
+        "system": "summary"
+      },
+      "name": "Summary",
+      "fieldId": "summary",
+      "operations": [
+        "set"
+      ]
+    },
+    "description": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "system": "description"
+      },
+      "name": "Description",
+      "fieldId": "description",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_10223": {
+      "required": false,
+      "schema": {
+        "type": "option",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:select",
+        "customId": 10223
+      },
+      "name": "Safety Requirement",
+      "fieldId": "customfield_10223",
+      "operations": [
+        "set"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/10240",
+          "value": "QM / 0",
+          "id": "10240",
+          "disabled": false
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/10241",
+          "value": "A / 1",
+          "id": "10241",
+          "disabled": false
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/10242",
+          "value": "B / 2",
+          "id": "10242",
+          "disabled": false
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/10243",
+          "value": "C / 3",
+          "id": "10243",
+          "disabled": false
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/10244",
+          "value": "D / 4",
+          "id": "10244",
+          "disabled": false
+        }
+      ]
+    },
+    "customfield_11800": {
+      "required": false,
+      "schema": {
+        "type": "array",
+        "items": "option",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:multicheckboxes",
+        "customId": 11800
+      },
+      "name": "Non-Functional",
+      "fieldId": "customfield_11800",
+      "operations": [
+        "add",
+        "set",
+        "remove"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/15220",
+          "value": "true",
+          "id": "15220",
+          "disabled": false
+        }
+      ]
+    },
+    "customfield_11028": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textarea",
+        "customId": 11028
+      },
+      "name": "Acceptance Criteria",
+      "fieldId": "customfield_11028",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_17200": {
+      "required": false,
+      "schema": {
+        "type": "array",
+        "items": "checklist-item",
+        "custom": "com.okapya.jira.checklist:checklist",
+        "customId": 17200
+      },
+      "name": "Story Checklist",
+      "fieldId": "customfield_17200",
+      "operations": [
+        "set",
+        "add",
+        "edit",
+        "remove"
+      ],
+      "allowedValues": [
+        {
+          "name": "Submit [ServiceNow](https://aptiv.service-now.com/sp?id=sc_cat_item&sys_id=cbb0a5881b32251084f164e0b24bcb75) Request form to configure for your project\n>>\n**Note:** when you click on the ServiceNow request form link for the first time, you will get an error message like :The Page You are looking for could not be found. Ignore this message and click on the link for the second time and you will be redirected to the Jira custom fields page on ServiceNow.",
+          "checked": false,
+          "mandatory": true,
+          "id": 1,
+          "globalItemId": 26322,
+          "rank": 0,
+          "assigneeIds": [],
+          "isHeader": false,
+          "statusId": "none"
+        }
+      ]
+    },
+    "customfield_12019": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textarea",
+        "customId": 12019
+      },
+      "name": "Related Requirement/s",
+      "fieldId": "customfield_12019",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_14904": {
+      "required": false,
+      "schema": {
+        "type": "option",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:select",
+        "customId": 14904
+      },
+      "name": "Sync to Polarion",
+      "fieldId": "customfield_14904",
+      "operations": [
+        "set"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/34087",
+          "value": "No",
+          "id": "34087",
+          "disabled": false
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/34088",
+          "value": "Yes",
+          "id": "34088",
+          "disabled": false
+        }
+      ]
+    },
+    "customfield_12106": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textfield",
+        "customId": 12106
+      },
+      "name": "Polarion URL",
+      "fieldId": "customfield_12106",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_11030": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textfield",
+        "customId": 11030
+      },
+      "name": "Polarion ID",
+      "fieldId": "customfield_11030",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_10603": {
+      "required": false,
+      "schema": {
+        "type": "array",
+        "items": "option",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:multiselect",
+        "customId": 10603
+      },
+      "name": "Product Name",
+      "fieldId": "customfield_10603",
+      "operations": [
+        "add",
+        "set",
+        "remove"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/12081",
+          "value": "Raise ServiceNow incident to configure for your project",
+          "id": "12081",
+          "disabled": false
+        }
+      ]
+    },
+    "customfield_10002": {
+      "required": false,
+      "schema": {
+        "type": "number",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:float",
+        "customId": 10002
+      },
+      "name": "Story Points",
+      "fieldId": "customfield_10002",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_18600": {
+      "required": false,
+      "schema": {
+        "type": "array",
+        "items": "user",
+        "custom": "com.atlassian.jira.jira-initial-watchers-plugin:initialwatchers",
+        "customId": 18600
+      },
+      "name": "Watchers",
+      "fieldId": "customfield_18600",
+      "autoCompleteUrl": "https://jiraprod.aptiv.com/rest/api/1.0/users/picker?fieldName=customfield_18600&query=",
+      "operations": [
+        "add",
+        "set",
+        "remove"
+      ]
+    },
+    "reporter": {
+      "required": true,
+      "schema": {
+        "type": "user",
+        "system": "reporter"
+      },
+      "name": "Reporter",
+      "fieldId": "reporter",
+      "autoCompleteUrl": "https://jiraprod.aptiv.com/rest/api/latest/user/search?username=",
+      "operations": [
+        "set"
+      ]
+    },
+    "components": {
+      "required": false,
+      "schema": {
+        "type": "array",
+        "items": "component",
+        "system": "components"
+      },
+      "name": "Component/s",
+      "fieldId": "components",
+      "operations": [
+        "add",
+        "set",
+        "remove"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/component/46587",
+          "id": "46587",
+          "name": "CoreFW"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/component/42386",
+          "id": "42386",
+          "name": "Generic",
+          "description": "This is a place holder for a common task needed for all the Components. Like HW setup. Dev Env setup."
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/component/42382",
+          "id": "42382",
+          "name": "IPM",
+          "description": "Interior Sensing Package Manager"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/component/42383",
+          "id": "42383",
+          "name": "IS-Spy",
+          "description": "A Messaging Spy tool for Interior sensing services and development"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/component/42384",
+          "id": "42384",
+          "name": "ISPFW",
+          "description": "Feature Framework which support various services for Interior sensing SDK "
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/component/42404",
+          "id": "42404",
+          "name": "KPI Calculator",
+          "description": "Tracking of KPI Calculation Issues"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/component/42385",
+          "id": "42385",
+          "name": "Offline Visualization",
+          "description": "A Tool to Visualization camera frames in synch DMS Data. which is independent of ISPFW services. "
+        }
+      ]
+    },
+    "versions": {
+      "required": false,
+      "schema": {
+        "type": "array",
+        "items": "version",
+        "system": "versions"
+      },
+      "name": "Affects Version/s",
+      "fieldId": "versions",
+      "operations": [
+        "set",
+        "add",
+        "remove"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/126027",
+          "id": "126027",
+          "description": "ISPFW 2.5.16 - First release in 2024",
+          "name": "ISPFW2.5.16",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "01/Feb/24",
+          "projectId": 28209,
+          "releaseDate": "2024-02-01"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/127510",
+          "id": "127510",
+          "description": "ISPFW 2.5.17",
+          "name": "ISPFW2.5.17",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "02/Apr/24",
+          "projectId": 28209,
+          "releaseDate": "2024-04-02"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/131345",
+          "id": "131345",
+          "description": "Bug fix found in 2.5.17",
+          "name": "ISPFW2.5.19",
+          "archived": false,
+          "released": true,
+          "userStartDate": "10/Apr/24",
+          "userReleaseDate": "22/Apr/24",
+          "projectId": 28209,
+          "startDate": "2024-04-10",
+          "releaseDate": "2024-04-22"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/131651",
+          "id": "131651",
+          "name": "NWOFV1.0",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "23/Apr/24",
+          "projectId": 28209,
+          "releaseDate": "2024-04-23"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/131809",
+          "id": "131809",
+          "name": "CoreFW2.5.20",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "17/Jun/24",
+          "projectId": 28209,
+          "releaseDate": "2024-06-17"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/135781",
+          "id": "135781",
+          "name": "CoreFW2.5.21",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "26/Jun/24",
+          "projectId": 28209,
+          "releaseDate": "2024-06-26"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/135782",
+          "id": "135782",
+          "name": "CoreFW2.5.22",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "09/Aug/24",
+          "projectId": 28209,
+          "releaseDate": "2024-08-09"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/142051",
+          "id": "142051",
+          "name": "CoreFW2.5.23",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "24/Oct/24",
+          "projectId": 28209,
+          "releaseDate": "2024-10-24"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/146279",
+          "id": "146279",
+          "name": "CoreFW2.5.25",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "03/Jan/25",
+          "projectId": 28209,
+          "releaseDate": "2025-01-03"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/151054",
+          "id": "151054",
+          "name": "CoreFW2.5.27_Beta3.1",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "05/Jun/25",
+          "projectId": 28209,
+          "releaseDate": "2025-06-05"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/151488",
+          "id": "151488",
+          "name": "CoreFW2.5.27",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "05/Jun/25",
+          "projectId": 28209,
+          "releaseDate": "2025-06-05"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/155309",
+          "id": "155309",
+          "name": "2.5.29",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "05/Jun/25",
+          "projectId": 28209,
+          "releaseDate": "2025-06-05"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/155256",
+          "id": "155256",
+          "name": "2.5.30",
+          "archived": false,
+          "released": false,
+          "projectId": 28209
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/157661",
+          "id": "157661",
+          "name": "CoreFw 2.7.1",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "11/Aug/25",
+          "projectId": 28209,
+          "releaseDate": "2025-08-11"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/157693",
+          "id": "157693",
+          "name": "CoreFw 2.7.0",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "06/Aug/25",
+          "projectId": 28209,
+          "releaseDate": "2025-08-06"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/158612",
+          "id": "158612",
+          "name": "CoreFw 2.6.4",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "08/Aug/25",
+          "projectId": 28209,
+          "releaseDate": "2025-08-08"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/158755",
+          "id": "158755",
+          "name": "CoreFw 2.7.2",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "26/Aug/25",
+          "projectId": 28209,
+          "releaseDate": "2025-08-26"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/159356",
+          "id": "159356",
+          "name": "CoreFw 2.7.3",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "04/Sep/25",
+          "projectId": 28209,
+          "releaseDate": "2025-09-04"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/159920",
+          "id": "159920",
+          "name": "CoreFw 2.7.4",
+          "archived": false,
+          "released": false,
+          "overdue": false,
+          "userReleaseDate": "15/Sep/25",
+          "projectId": 28209,
+          "releaseDate": "2025-09-15"
+        }
+      ]
+    },
+    "customfield_10308": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textfield",
+        "customId": 10308
+      },
+      "name": "Daily Build Version",
+      "fieldId": "customfield_10308",
+      "operations": [
+        "set"
+      ]
+    },
+    "fixVersions": {
+      "required": false,
+      "schema": {
+        "type": "array",
+        "items": "version",
+        "system": "fixVersions"
+      },
+      "name": "Fix Version/s",
+      "fieldId": "fixVersions",
+      "operations": [
+        "set",
+        "add",
+        "remove"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/126027",
+          "id": "126027",
+          "description": "ISPFW 2.5.16 - First release in 2024",
+          "name": "ISPFW2.5.16",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "01/Feb/24",
+          "projectId": 28209,
+          "releaseDate": "2024-02-01"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/127510",
+          "id": "127510",
+          "description": "ISPFW 2.5.17",
+          "name": "ISPFW2.5.17",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "02/Apr/24",
+          "projectId": 28209,
+          "releaseDate": "2024-04-02"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/131345",
+          "id": "131345",
+          "description": "Bug fix found in 2.5.17",
+          "name": "ISPFW2.5.19",
+          "archived": false,
+          "released": true,
+          "userStartDate": "10/Apr/24",
+          "userReleaseDate": "22/Apr/24",
+          "projectId": 28209,
+          "startDate": "2024-04-10",
+          "releaseDate": "2024-04-22"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/131651",
+          "id": "131651",
+          "name": "NWOFV1.0",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "23/Apr/24",
+          "projectId": 28209,
+          "releaseDate": "2024-04-23"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/131809",
+          "id": "131809",
+          "name": "CoreFW2.5.20",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "17/Jun/24",
+          "projectId": 28209,
+          "releaseDate": "2024-06-17"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/135781",
+          "id": "135781",
+          "name": "CoreFW2.5.21",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "26/Jun/24",
+          "projectId": 28209,
+          "releaseDate": "2024-06-26"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/135782",
+          "id": "135782",
+          "name": "CoreFW2.5.22",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "09/Aug/24",
+          "projectId": 28209,
+          "releaseDate": "2024-08-09"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/142051",
+          "id": "142051",
+          "name": "CoreFW2.5.23",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "24/Oct/24",
+          "projectId": 28209,
+          "releaseDate": "2024-10-24"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/146279",
+          "id": "146279",
+          "name": "CoreFW2.5.25",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "03/Jan/25",
+          "projectId": 28209,
+          "releaseDate": "2025-01-03"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/151054",
+          "id": "151054",
+          "name": "CoreFW2.5.27_Beta3.1",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "05/Jun/25",
+          "projectId": 28209,
+          "releaseDate": "2025-06-05"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/151488",
+          "id": "151488",
+          "name": "CoreFW2.5.27",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "05/Jun/25",
+          "projectId": 28209,
+          "releaseDate": "2025-06-05"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/155309",
+          "id": "155309",
+          "name": "2.5.29",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "05/Jun/25",
+          "projectId": 28209,
+          "releaseDate": "2025-06-05"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/155256",
+          "id": "155256",
+          "name": "2.5.30",
+          "archived": false,
+          "released": false,
+          "projectId": 28209
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/157661",
+          "id": "157661",
+          "name": "CoreFw 2.7.1",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "11/Aug/25",
+          "projectId": 28209,
+          "releaseDate": "2025-08-11"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/157693",
+          "id": "157693",
+          "name": "CoreFw 2.7.0",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "06/Aug/25",
+          "projectId": 28209,
+          "releaseDate": "2025-08-06"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/158612",
+          "id": "158612",
+          "name": "CoreFw 2.6.4",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "08/Aug/25",
+          "projectId": 28209,
+          "releaseDate": "2025-08-08"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/158755",
+          "id": "158755",
+          "name": "CoreFw 2.7.2",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "26/Aug/25",
+          "projectId": 28209,
+          "releaseDate": "2025-08-26"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/159356",
+          "id": "159356",
+          "name": "CoreFw 2.7.3",
+          "archived": false,
+          "released": true,
+          "userReleaseDate": "04/Sep/25",
+          "projectId": 28209,
+          "releaseDate": "2025-09-04"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/159920",
+          "id": "159920",
+          "name": "CoreFw 2.7.4",
+          "archived": false,
+          "released": false,
+          "overdue": false,
+          "userReleaseDate": "15/Sep/25",
+          "projectId": 28209,
+          "releaseDate": "2025-09-15"
+        }
+      ]
+    },
+    "customfield_15400": {
+      "required": false,
+      "schema": {
+        "type": "option-with-child",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:cascadingselect",
+        "customId": 15400
+      },
+      "name": "Target End Sprint",
+      "fieldId": "customfield_15400",
+      "operations": [
+        "set"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35700",
+          "value": "17 PI1",
+          "id": "35700",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35768",
+              "value": "Sprint 1",
+              "id": "35768",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35769",
+              "value": "Sprint 2",
+              "id": "35769",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35770",
+              "value": "Sprint 3",
+              "id": "35770",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35771",
+              "value": "Sprint 4",
+              "id": "35771",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35772",
+              "value": "Sprint 5",
+              "id": "35772",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35773",
+              "value": "Sprint 6",
+              "id": "35773",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35774",
+              "value": "DRP",
+              "id": "35774",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35775",
+              "value": "Next PI",
+              "id": "35775",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35701",
+          "value": "17 PI2",
+          "id": "35701",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35776",
+              "value": "Sprint 1",
+              "id": "35776",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35777",
+              "value": "Sprint 2",
+              "id": "35777",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35778",
+              "value": "Sprint 3",
+              "id": "35778",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35779",
+              "value": "Sprint 4",
+              "id": "35779",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35780",
+              "value": "Sprint 5",
+              "id": "35780",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35781",
+              "value": "DRP",
+              "id": "35781",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35782",
+              "value": "Next PI",
+              "id": "35782",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35702",
+          "value": "17 PI3",
+          "id": "35702",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35783",
+              "value": "Sprint 1",
+              "id": "35783",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35784",
+              "value": "Sprint 2",
+              "id": "35784",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35785",
+              "value": "Sprint 3",
+              "id": "35785",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35786",
+              "value": "Sprint 4",
+              "id": "35786",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35787",
+              "value": "Sprint 5",
+              "id": "35787",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35788",
+              "value": "Sprint 6",
+              "id": "35788",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35789",
+              "value": "DRP",
+              "id": "35789",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35790",
+              "value": "Next PI",
+              "id": "35790",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35703",
+          "value": "17 PI4",
+          "id": "35703",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35791",
+              "value": "Sprint 1",
+              "id": "35791",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35792",
+              "value": "Sprint 2",
+              "id": "35792",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35793",
+              "value": "Sprint 3",
+              "id": "35793",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35794",
+              "value": "Sprint 4",
+              "id": "35794",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35795",
+              "value": "Sprint 5",
+              "id": "35795",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35796",
+              "value": "DRP",
+              "id": "35796",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35797",
+              "value": "Next PI",
+              "id": "35797",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35704",
+          "value": "18 PI1",
+          "id": "35704",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35798",
+              "value": "Sprint 1",
+              "id": "35798",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35799",
+              "value": "Sprint 2",
+              "id": "35799",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35800",
+              "value": "Sprint 3",
+              "id": "35800",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35801",
+              "value": "Sprint 4",
+              "id": "35801",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35802",
+              "value": "Sprint 5",
+              "id": "35802",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35803",
+              "value": "Sprint 6",
+              "id": "35803",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35804",
+              "value": "DRP",
+              "id": "35804",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35805",
+              "value": "Next PI",
+              "id": "35805",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35705",
+          "value": "18 PI2",
+          "id": "35705",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35806",
+              "value": "Sprint 1",
+              "id": "35806",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35807",
+              "value": "Sprint 2",
+              "id": "35807",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35808",
+              "value": "Sprint 3",
+              "id": "35808",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35809",
+              "value": "Sprint 4",
+              "id": "35809",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35810",
+              "value": "Sprint 5",
+              "id": "35810",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35811",
+              "value": "DRP",
+              "id": "35811",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35812",
+              "value": "Next PI",
+              "id": "35812",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35706",
+          "value": "18 PI3",
+          "id": "35706",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35813",
+              "value": "Sprint 1",
+              "id": "35813",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35814",
+              "value": "Sprint 2",
+              "id": "35814",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35815",
+              "value": "Sprint 3",
+              "id": "35815",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35816",
+              "value": "Sprint 4",
+              "id": "35816",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35817",
+              "value": "Sprint 5",
+              "id": "35817",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35818",
+              "value": "Sprint 6",
+              "id": "35818",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35819",
+              "value": "DRP",
+              "id": "35819",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35820",
+              "value": "Next PI",
+              "id": "35820",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35707",
+          "value": "18 PI4",
+          "id": "35707",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35821",
+              "value": "Sprint 1",
+              "id": "35821",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35822",
+              "value": "Sprint 2",
+              "id": "35822",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35823",
+              "value": "Sprint 3",
+              "id": "35823",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35824",
+              "value": "Sprint 4",
+              "id": "35824",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35825",
+              "value": "Sprint 5",
+              "id": "35825",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35827",
+              "value": "DRP",
+              "id": "35827",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35828",
+              "value": "Next PI",
+              "id": "35828",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35708",
+          "value": "19 PI1",
+          "id": "35708",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35829",
+              "value": "Sprint 1",
+              "id": "35829",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35830",
+              "value": "Sprint 2",
+              "id": "35830",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35831",
+              "value": "Sprint 3",
+              "id": "35831",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35832",
+              "value": "Sprint 4",
+              "id": "35832",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35833",
+              "value": "Sprint 5",
+              "id": "35833",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35834",
+              "value": "Sprint 6",
+              "id": "35834",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35835",
+              "value": "DRP",
+              "id": "35835",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35836",
+              "value": "Next PI",
+              "id": "35836",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35709",
+          "value": "19 PI2",
+          "id": "35709",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35837",
+              "value": "Sprint 1",
+              "id": "35837",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35838",
+              "value": "Sprint 2",
+              "id": "35838",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35839",
+              "value": "Sprint 3",
+              "id": "35839",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35840",
+              "value": "Sprint 4",
+              "id": "35840",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35841",
+              "value": "Sprint 5",
+              "id": "35841",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35842",
+              "value": "DRP",
+              "id": "35842",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35843",
+              "value": "Next PI",
+              "id": "35843",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35710",
+          "value": "19 PI3",
+          "id": "35710",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35844",
+              "value": "Sprint 1",
+              "id": "35844",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35845",
+              "value": "Sprint 2",
+              "id": "35845",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35846",
+              "value": "Sprint 3",
+              "id": "35846",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35847",
+              "value": "Sprint 4",
+              "id": "35847",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35848",
+              "value": "Sprint 5",
+              "id": "35848",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35849",
+              "value": "Sprint 6",
+              "id": "35849",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35850",
+              "value": "DRP",
+              "id": "35850",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35851",
+              "value": "Next PI",
+              "id": "35851",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35711",
+          "value": "19 PI4",
+          "id": "35711",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35852",
+              "value": "Sprint 1",
+              "id": "35852",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35853",
+              "value": "Sprint 2",
+              "id": "35853",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35854",
+              "value": "Sprint 3",
+              "id": "35854",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35855",
+              "value": "Sprint 4",
+              "id": "35855",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35856",
+              "value": "Sprint 5",
+              "id": "35856",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35857",
+              "value": "DRP",
+              "id": "35857",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35858",
+              "value": "Next PI",
+              "id": "35858",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35712",
+          "value": "20 PI1",
+          "id": "35712",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35859",
+              "value": "Sprint 1",
+              "id": "35859",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35860",
+              "value": "Sprint 2",
+              "id": "35860",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35861",
+              "value": "Sprint 3",
+              "id": "35861",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35862",
+              "value": "Sprint 4",
+              "id": "35862",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35863",
+              "value": "Sprint 5",
+              "id": "35863",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35864",
+              "value": "Sprint 6",
+              "id": "35864",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35865",
+              "value": "DRP",
+              "id": "35865",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35866",
+              "value": "Next PI",
+              "id": "35866",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35713",
+          "value": "20 PI2",
+          "id": "35713",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35867",
+              "value": "Sprint 1",
+              "id": "35867",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35868",
+              "value": "Sprint 2",
+              "id": "35868",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35869",
+              "value": "Sprint 3",
+              "id": "35869",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35870",
+              "value": "Sprint 4",
+              "id": "35870",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35871",
+              "value": "Sprint 5",
+              "id": "35871",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35872",
+              "value": "DRP",
+              "id": "35872",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35873",
+              "value": "Next PI",
+              "id": "35873",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35714",
+          "value": "20 PI3",
+          "id": "35714",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35874",
+              "value": "Sprint 1",
+              "id": "35874",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35875",
+              "value": "Sprint 2",
+              "id": "35875",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35876",
+              "value": "Sprint 3",
+              "id": "35876",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35877",
+              "value": "Sprint 4",
+              "id": "35877",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35878",
+              "value": "Sprint 5",
+              "id": "35878",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35879",
+              "value": "Sprint 6",
+              "id": "35879",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35880",
+              "value": "DRP",
+              "id": "35880",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35881",
+              "value": "Next PI",
+              "id": "35881",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35715",
+          "value": "20 PI4",
+          "id": "35715",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35882",
+              "value": "Sprint 1",
+              "id": "35882",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35883",
+              "value": "Sprint 2",
+              "id": "35883",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35884",
+              "value": "Sprint 3",
+              "id": "35884",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35885",
+              "value": "Sprint 4",
+              "id": "35885",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35886",
+              "value": "Sprint 5",
+              "id": "35886",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35887",
+              "value": "DRP",
+              "id": "35887",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35888",
+              "value": "Next PI",
+              "id": "35888",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35716",
+          "value": "21 PI1",
+          "id": "35716",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35889",
+              "value": "Sprint 1",
+              "id": "35889",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35890",
+              "value": "Sprint 2",
+              "id": "35890",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35891",
+              "value": "Sprint 3",
+              "id": "35891",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35892",
+              "value": "Sprint 4",
+              "id": "35892",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35893",
+              "value": "Sprint 5",
+              "id": "35893",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35894",
+              "value": "Sprint 6",
+              "id": "35894",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35895",
+              "value": "DRP",
+              "id": "35895",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35896",
+              "value": "Next PI",
+              "id": "35896",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35717",
+          "value": "21 PI2",
+          "id": "35717",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35897",
+              "value": "Sprint 1",
+              "id": "35897",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35898",
+              "value": "Sprint 2",
+              "id": "35898",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35899",
+              "value": "Sprint 3",
+              "id": "35899",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35900",
+              "value": "Sprint 4",
+              "id": "35900",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35901",
+              "value": "Sprint 5",
+              "id": "35901",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35902",
+              "value": "DRP",
+              "id": "35902",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35903",
+              "value": "Next PI",
+              "id": "35903",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35718",
+          "value": "21 PI3",
+          "id": "35718",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35904",
+              "value": "Sprint 1",
+              "id": "35904",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35905",
+              "value": "Sprint 2",
+              "id": "35905",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35906",
+              "value": "Sprint 3",
+              "id": "35906",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35907",
+              "value": "Sprint 4",
+              "id": "35907",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35908",
+              "value": "Sprint 5",
+              "id": "35908",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35909",
+              "value": "Sprint 6",
+              "id": "35909",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35910",
+              "value": "DRP",
+              "id": "35910",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35911",
+              "value": "Next PI",
+              "id": "35911",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35719",
+          "value": "21 PI4",
+          "id": "35719",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35912",
+              "value": "Sprint 1",
+              "id": "35912",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35913",
+              "value": "Sprint 2",
+              "id": "35913",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35914",
+              "value": "Sprint 3",
+              "id": "35914",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35915",
+              "value": "Sprint 4",
+              "id": "35915",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35916",
+              "value": "Sprint 5",
+              "id": "35916",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35917",
+              "value": "DRP",
+              "id": "35917",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35918",
+              "value": "Next PI",
+              "id": "35918",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35720",
+          "value": "22 PI1",
+          "id": "35720",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35919",
+              "value": "Sprint 1",
+              "id": "35919",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35920",
+              "value": "Sprint 2",
+              "id": "35920",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35921",
+              "value": "Sprint 3",
+              "id": "35921",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35922",
+              "value": "Sprint 4",
+              "id": "35922",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35923",
+              "value": "Sprint 5",
+              "id": "35923",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35924",
+              "value": "Sprint 6",
+              "id": "35924",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35925",
+              "value": "DRP",
+              "id": "35925",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35926",
+              "value": "Next PI",
+              "id": "35926",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35721",
+          "value": "22 PI2",
+          "id": "35721",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35927",
+              "value": "Sprint 1",
+              "id": "35927",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35928",
+              "value": "Sprint 2",
+              "id": "35928",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35929",
+              "value": "Sprint 3",
+              "id": "35929",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35930",
+              "value": "Sprint 4",
+              "id": "35930",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35931",
+              "value": "Sprint 5",
+              "id": "35931",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35932",
+              "value": "DRP",
+              "id": "35932",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35933",
+              "value": "Next PI",
+              "id": "35933",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35722",
+          "value": "22 PI3",
+          "id": "35722",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35934",
+              "value": "Sprint 1",
+              "id": "35934",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35935",
+              "value": "Sprint 2",
+              "id": "35935",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35936",
+              "value": "Sprint 3",
+              "id": "35936",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35937",
+              "value": "Sprint 4",
+              "id": "35937",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35938",
+              "value": "Sprint 5",
+              "id": "35938",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35939",
+              "value": "Sprint 6",
+              "id": "35939",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35940",
+              "value": "DRP",
+              "id": "35940",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35941",
+              "value": "Next PI",
+              "id": "35941",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35723",
+          "value": "22 PI4",
+          "id": "35723",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35942",
+              "value": "Sprint 1",
+              "id": "35942",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35943",
+              "value": "Sprint 2",
+              "id": "35943",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35944",
+              "value": "Sprint 3",
+              "id": "35944",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35945",
+              "value": "Sprint 4",
+              "id": "35945",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35946",
+              "value": "Sprint 5",
+              "id": "35946",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35947",
+              "value": "DRP",
+              "id": "35947",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35948",
+              "value": "Next PI",
+              "id": "35948",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35724",
+          "value": "23 PI1",
+          "id": "35724",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35949",
+              "value": "Sprint 1",
+              "id": "35949",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35950",
+              "value": "Sprint 2",
+              "id": "35950",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35951",
+              "value": "Sprint 3",
+              "id": "35951",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35952",
+              "value": "Sprint 4",
+              "id": "35952",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35953",
+              "value": "Sprint 5",
+              "id": "35953",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35954",
+              "value": "Sprint 6",
+              "id": "35954",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35955",
+              "value": "DRP",
+              "id": "35955",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35956",
+              "value": "Next PI",
+              "id": "35956",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35725",
+          "value": "23 PI2",
+          "id": "35725",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35957",
+              "value": "Sprint 1",
+              "id": "35957",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35958",
+              "value": "Sprint 2",
+              "id": "35958",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35959",
+              "value": "Sprint 3",
+              "id": "35959",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35960",
+              "value": "Sprint 4",
+              "id": "35960",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35961",
+              "value": "Sprint 5",
+              "id": "35961",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35962",
+              "value": "DRP",
+              "id": "35962",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35963",
+              "value": "Next PI",
+              "id": "35963",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35726",
+          "value": "23 PI3",
+          "id": "35726",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35964",
+              "value": "Sprint 1",
+              "id": "35964",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35965",
+              "value": "Sprint 2",
+              "id": "35965",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35966",
+              "value": "Sprint 3",
+              "id": "35966",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35967",
+              "value": "Sprint 4",
+              "id": "35967",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35968",
+              "value": "Sprint 5",
+              "id": "35968",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35969",
+              "value": "Sprint 6",
+              "id": "35969",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35970",
+              "value": "DRP",
+              "id": "35970",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35971",
+              "value": "Next PI",
+              "id": "35971",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35727",
+          "value": "23 PI4",
+          "id": "35727",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35972",
+              "value": "Sprint 1",
+              "id": "35972",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35973",
+              "value": "Sprint 2",
+              "id": "35973",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35974",
+              "value": "Sprint 3",
+              "id": "35974",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35975",
+              "value": "Sprint 4",
+              "id": "35975",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35976",
+              "value": "Sprint 5",
+              "id": "35976",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35977",
+              "value": "DRP",
+              "id": "35977",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35978",
+              "value": "Next PI",
+              "id": "35978",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35728",
+          "value": "24 PI1",
+          "id": "35728",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35979",
+              "value": "Sprint 1",
+              "id": "35979",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35980",
+              "value": "Sprint 2",
+              "id": "35980",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35981",
+              "value": "Sprint 3",
+              "id": "35981",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35982",
+              "value": "Sprint 4",
+              "id": "35982",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35983",
+              "value": "Sprint 5",
+              "id": "35983",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35984",
+              "value": "Sprint 6",
+              "id": "35984",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35985",
+              "value": "DRP",
+              "id": "35985",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35986",
+              "value": "Next PI",
+              "id": "35986",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35729",
+          "value": "24 PI2",
+          "id": "35729",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35987",
+              "value": "Sprint 1",
+              "id": "35987",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35988",
+              "value": "Sprint 2",
+              "id": "35988",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35989",
+              "value": "Sprint 3",
+              "id": "35989",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35990",
+              "value": "Sprint 4",
+              "id": "35990",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35991",
+              "value": "Sprint 5",
+              "id": "35991",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35992",
+              "value": "DRP",
+              "id": "35992",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35993",
+              "value": "Next PI",
+              "id": "35993",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35730",
+          "value": "24 PI3",
+          "id": "35730",
+          "disabled": true,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35994",
+              "value": "Sprint 1",
+              "id": "35994",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35995",
+              "value": "Sprint 2",
+              "id": "35995",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35996",
+              "value": "Sprint 3",
+              "id": "35996",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35997",
+              "value": "Sprint 4",
+              "id": "35997",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35998",
+              "value": "Sprint 5",
+              "id": "35998",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35999",
+              "value": "Sprint 6",
+              "id": "35999",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36000",
+              "value": "DRP",
+              "id": "36000",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36001",
+              "value": "Next PI",
+              "id": "36001",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35731",
+          "value": "24 PI4",
+          "id": "35731",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36002",
+              "value": "Sprint 1",
+              "id": "36002",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36003",
+              "value": "Sprint 2",
+              "id": "36003",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36004",
+              "value": "Sprint 3",
+              "id": "36004",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36005",
+              "value": "Sprint 4",
+              "id": "36005",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36006",
+              "value": "Sprint 5",
+              "id": "36006",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36007",
+              "value": "DRP",
+              "id": "36007",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36008",
+              "value": "Next PI",
+              "id": "36008",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35732",
+          "value": "25 PI1",
+          "id": "35732",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36009",
+              "value": "Sprint 1",
+              "id": "36009",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36010",
+              "value": "Sprint 2",
+              "id": "36010",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36011",
+              "value": "Sprint 3",
+              "id": "36011",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36012",
+              "value": "Sprint 4",
+              "id": "36012",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36013",
+              "value": "Sprint 5",
+              "id": "36013",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36014",
+              "value": "Sprint 6",
+              "id": "36014",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36015",
+              "value": "DRP",
+              "id": "36015",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36016",
+              "value": "Next PI",
+              "id": "36016",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35733",
+          "value": "25 PI2",
+          "id": "35733",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36017",
+              "value": "Sprint 1",
+              "id": "36017",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36018",
+              "value": "Sprint 2",
+              "id": "36018",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36019",
+              "value": "Sprint 3",
+              "id": "36019",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36020",
+              "value": "Sprint 4",
+              "id": "36020",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36021",
+              "value": "Sprint 5",
+              "id": "36021",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36022",
+              "value": "DRP",
+              "id": "36022",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36023",
+              "value": "Next PI",
+              "id": "36023",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35734",
+          "value": "25 PI3",
+          "id": "35734",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36024",
+              "value": "Sprint 1",
+              "id": "36024",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36025",
+              "value": "Sprint 2",
+              "id": "36025",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36026",
+              "value": "Sprint 3",
+              "id": "36026",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36027",
+              "value": "Sprint 4",
+              "id": "36027",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36028",
+              "value": "Sprint 5",
+              "id": "36028",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36029",
+              "value": "Sprint 6",
+              "id": "36029",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36030",
+              "value": "DRP",
+              "id": "36030",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36031",
+              "value": "Next PI",
+              "id": "36031",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35735",
+          "value": "25 PI4",
+          "id": "35735",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36032",
+              "value": "Sprint 1",
+              "id": "36032",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36033",
+              "value": "Sprint 2",
+              "id": "36033",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36034",
+              "value": "Sprint 3",
+              "id": "36034",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36035",
+              "value": "Sprint 4",
+              "id": "36035",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36036",
+              "value": "Sprint 5",
+              "id": "36036",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36037",
+              "value": "DRP",
+              "id": "36037",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36038",
+              "value": "Next PI",
+              "id": "36038",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35736",
+          "value": "26 PI1",
+          "id": "35736",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36039",
+              "value": "Sprint 1",
+              "id": "36039",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36040",
+              "value": "Sprint 2",
+              "id": "36040",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36041",
+              "value": "Sprint 3",
+              "id": "36041",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36042",
+              "value": "Sprint 4",
+              "id": "36042",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36043",
+              "value": "Sprint 5",
+              "id": "36043",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36044",
+              "value": "Sprint 6",
+              "id": "36044",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36045",
+              "value": "DRP",
+              "id": "36045",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36046",
+              "value": "Next PI",
+              "id": "36046",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35737",
+          "value": "26 PI2",
+          "id": "35737",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36047",
+              "value": "Sprint 1",
+              "id": "36047",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36048",
+              "value": "Sprint 2",
+              "id": "36048",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36049",
+              "value": "Sprint 3",
+              "id": "36049",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36050",
+              "value": "Sprint 4",
+              "id": "36050",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36051",
+              "value": "Sprint 5",
+              "id": "36051",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36052",
+              "value": "DRP",
+              "id": "36052",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36053",
+              "value": "Next PI",
+              "id": "36053",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35738",
+          "value": "26 PI3",
+          "id": "35738",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36054",
+              "value": "Sprint 1",
+              "id": "36054",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36055",
+              "value": "Sprint 2",
+              "id": "36055",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36056",
+              "value": "Sprint 3",
+              "id": "36056",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36057",
+              "value": "Sprint 4",
+              "id": "36057",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36058",
+              "value": "Sprint 5",
+              "id": "36058",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36059",
+              "value": "Sprint 6",
+              "id": "36059",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36060",
+              "value": "DRP",
+              "id": "36060",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36061",
+              "value": "Next PI",
+              "id": "36061",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35739",
+          "value": "26 PI4",
+          "id": "35739",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36062",
+              "value": "Sprint 1",
+              "id": "36062",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36063",
+              "value": "Sprint 2",
+              "id": "36063",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36064",
+              "value": "Sprint 3",
+              "id": "36064",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36065",
+              "value": "Sprint 4",
+              "id": "36065",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36066",
+              "value": "Sprint 5",
+              "id": "36066",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36067",
+              "value": "DRP",
+              "id": "36067",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36068",
+              "value": "Next PI",
+              "id": "36068",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35740",
+          "value": "27 PI1",
+          "id": "35740",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36069",
+              "value": "Sprint 1",
+              "id": "36069",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36070",
+              "value": "Sprint 2",
+              "id": "36070",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36071",
+              "value": "Sprint 3",
+              "id": "36071",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36072",
+              "value": "Sprint 4",
+              "id": "36072",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36073",
+              "value": "Sprint 5",
+              "id": "36073",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36074",
+              "value": "Sprint 6",
+              "id": "36074",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36075",
+              "value": "DRP",
+              "id": "36075",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36076",
+              "value": "Next PI",
+              "id": "36076",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35741",
+          "value": "27 PI2",
+          "id": "35741",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36077",
+              "value": "Sprint 1",
+              "id": "36077",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36078",
+              "value": "Sprint 2",
+              "id": "36078",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36079",
+              "value": "Sprint 3",
+              "id": "36079",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36080",
+              "value": "Sprint 4",
+              "id": "36080",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36081",
+              "value": "Sprint 5",
+              "id": "36081",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36082",
+              "value": "DRP",
+              "id": "36082",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36083",
+              "value": "Next PI",
+              "id": "36083",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35742",
+          "value": "27 PI3",
+          "id": "35742",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36084",
+              "value": "Sprint 1",
+              "id": "36084",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36085",
+              "value": "Sprint 2",
+              "id": "36085",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36086",
+              "value": "Sprint 3",
+              "id": "36086",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36087",
+              "value": "Sprint 4",
+              "id": "36087",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36088",
+              "value": "Sprint 5",
+              "id": "36088",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36089",
+              "value": "Sprint 6",
+              "id": "36089",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36090",
+              "value": "DRP",
+              "id": "36090",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36091",
+              "value": "Next PI",
+              "id": "36091",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35743",
+          "value": "27 PI4",
+          "id": "35743",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36092",
+              "value": "Sprint 1",
+              "id": "36092",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36093",
+              "value": "Sprint 2",
+              "id": "36093",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36094",
+              "value": "Sprint 3",
+              "id": "36094",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36095",
+              "value": "Sprint 4",
+              "id": "36095",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36096",
+              "value": "Sprint 5",
+              "id": "36096",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36097",
+              "value": "DRP",
+              "id": "36097",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36098",
+              "value": "Next PI",
+              "id": "36098",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35744",
+          "value": "28 PI1",
+          "id": "35744",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36099",
+              "value": "Sprint 1",
+              "id": "36099",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36100",
+              "value": "Sprint 2",
+              "id": "36100",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36101",
+              "value": "Sprint 3",
+              "id": "36101",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36102",
+              "value": "Sprint 4",
+              "id": "36102",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36103",
+              "value": "Sprint 5",
+              "id": "36103",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36104",
+              "value": "Sprint 6",
+              "id": "36104",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36105",
+              "value": "DRP",
+              "id": "36105",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36106",
+              "value": "Next PI",
+              "id": "36106",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35745",
+          "value": "28 PI2",
+          "id": "35745",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36107",
+              "value": "Sprint 1",
+              "id": "36107",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36108",
+              "value": "Sprint 2",
+              "id": "36108",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36109",
+              "value": "Sprint 3",
+              "id": "36109",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36110",
+              "value": "Sprint 4",
+              "id": "36110",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36111",
+              "value": "Sprint 5",
+              "id": "36111",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36112",
+              "value": "DRP",
+              "id": "36112",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36113",
+              "value": "Next PI",
+              "id": "36113",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35746",
+          "value": "28 PI3",
+          "id": "35746",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36114",
+              "value": "Sprint 1",
+              "id": "36114",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36115",
+              "value": "Sprint 2",
+              "id": "36115",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36116",
+              "value": "Sprint 3",
+              "id": "36116",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36117",
+              "value": "Sprint 4",
+              "id": "36117",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36118",
+              "value": "Sprint 5",
+              "id": "36118",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36119",
+              "value": "Sprint 6",
+              "id": "36119",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36120",
+              "value": "DRP",
+              "id": "36120",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36121",
+              "value": "Next PI",
+              "id": "36121",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35747",
+          "value": "28 PI4",
+          "id": "35747",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36122",
+              "value": "Sprint 1",
+              "id": "36122",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36123",
+              "value": "Sprint 2",
+              "id": "36123",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36124",
+              "value": "Sprint 3",
+              "id": "36124",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36125",
+              "value": "Sprint 4",
+              "id": "36125",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36126",
+              "value": "Sprint 5",
+              "id": "36126",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36127",
+              "value": "DRP",
+              "id": "36127",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36128",
+              "value": "Next PI",
+              "id": "36128",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35748",
+          "value": "29 PI1",
+          "id": "35748",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36129",
+              "value": "Sprint 1",
+              "id": "36129",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36130",
+              "value": "Sprint 2",
+              "id": "36130",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36131",
+              "value": "Sprint 3",
+              "id": "36131",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36132",
+              "value": "Sprint 4",
+              "id": "36132",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36133",
+              "value": "Sprint 5",
+              "id": "36133",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36134",
+              "value": "Sprint 6",
+              "id": "36134",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36135",
+              "value": "DRP",
+              "id": "36135",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36136",
+              "value": "Next PI",
+              "id": "36136",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35749",
+          "value": "29 PI2",
+          "id": "35749",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36137",
+              "value": "Sprint 1",
+              "id": "36137",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36138",
+              "value": "Sprint 2",
+              "id": "36138",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36139",
+              "value": "Sprint 3",
+              "id": "36139",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36140",
+              "value": "Sprint 4",
+              "id": "36140",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36141",
+              "value": "Sprint 5",
+              "id": "36141",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36142",
+              "value": "DRP",
+              "id": "36142",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36143",
+              "value": "Next PI",
+              "id": "36143",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35750",
+          "value": "29 PI3",
+          "id": "35750",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36144",
+              "value": "Sprint 1",
+              "id": "36144",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36145",
+              "value": "Sprint 2",
+              "id": "36145",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36146",
+              "value": "Sprint 3",
+              "id": "36146",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36147",
+              "value": "Sprint 4",
+              "id": "36147",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36148",
+              "value": "Sprint 5",
+              "id": "36148",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36149",
+              "value": "Sprint 6",
+              "id": "36149",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36150",
+              "value": "DRP",
+              "id": "36150",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36151",
+              "value": "Next PI",
+              "id": "36151",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35751",
+          "value": "29 PI4",
+          "id": "35751",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36152",
+              "value": "Sprint 1",
+              "id": "36152",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36153",
+              "value": "Sprint 2",
+              "id": "36153",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36154",
+              "value": "Sprint 3",
+              "id": "36154",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36155",
+              "value": "Sprint 4",
+              "id": "36155",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36156",
+              "value": "Sprint 5",
+              "id": "36156",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36157",
+              "value": "DRP",
+              "id": "36157",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36158",
+              "value": "Next PI",
+              "id": "36158",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35752",
+          "value": "30 PI1",
+          "id": "35752",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36159",
+              "value": "Sprint 1",
+              "id": "36159",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36160",
+              "value": "Sprint 2",
+              "id": "36160",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36161",
+              "value": "Sprint 3",
+              "id": "36161",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36162",
+              "value": "Sprint 4",
+              "id": "36162",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36163",
+              "value": "Sprint 5",
+              "id": "36163",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36164",
+              "value": "Sprint 6",
+              "id": "36164",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36165",
+              "value": "DRP",
+              "id": "36165",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36166",
+              "value": "Next PI",
+              "id": "36166",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35753",
+          "value": "30 PI2",
+          "id": "35753",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36167",
+              "value": "Sprint 1",
+              "id": "36167",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36168",
+              "value": "Sprint 2",
+              "id": "36168",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36169",
+              "value": "Sprint 3",
+              "id": "36169",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36170",
+              "value": "Sprint 4",
+              "id": "36170",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36171",
+              "value": "Sprint 5",
+              "id": "36171",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36172",
+              "value": "DRP",
+              "id": "36172",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36173",
+              "value": "Next PI",
+              "id": "36173",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35754",
+          "value": "30 PI3",
+          "id": "35754",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36174",
+              "value": "Sprint 1",
+              "id": "36174",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36175",
+              "value": "Sprint 2",
+              "id": "36175",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36176",
+              "value": "Sprint 3",
+              "id": "36176",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36177",
+              "value": "Sprint 4",
+              "id": "36177",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36178",
+              "value": "Sprint 5",
+              "id": "36178",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36179",
+              "value": "Sprint 6",
+              "id": "36179",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36180",
+              "value": "DRP",
+              "id": "36180",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36181",
+              "value": "Next PI",
+              "id": "36181",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35755",
+          "value": "30 PI4",
+          "id": "35755",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36182",
+              "value": "Sprint 1",
+              "id": "36182",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36183",
+              "value": "Sprint 2",
+              "id": "36183",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36184",
+              "value": "Sprint 3",
+              "id": "36184",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36185",
+              "value": "Sprint 4",
+              "id": "36185",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36186",
+              "value": "Sprint 5",
+              "id": "36186",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36187",
+              "value": "DRP",
+              "id": "36187",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36188",
+              "value": "Next PI",
+              "id": "36188",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35756",
+          "value": "31 PI1",
+          "id": "35756",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36189",
+              "value": "Sprint 1",
+              "id": "36189",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36190",
+              "value": "Sprint 2",
+              "id": "36190",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36191",
+              "value": "Sprint 3",
+              "id": "36191",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36192",
+              "value": "Sprint 4",
+              "id": "36192",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36193",
+              "value": "Sprint 5",
+              "id": "36193",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36194",
+              "value": "Sprint 6",
+              "id": "36194",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36195",
+              "value": "DRP",
+              "id": "36195",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36196",
+              "value": "Next PI",
+              "id": "36196",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35757",
+          "value": "31 PI2",
+          "id": "35757",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36197",
+              "value": "Sprint 1",
+              "id": "36197",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36198",
+              "value": "Sprint 2",
+              "id": "36198",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36199",
+              "value": "Sprint 3",
+              "id": "36199",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36200",
+              "value": "Sprint 4",
+              "id": "36200",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36201",
+              "value": "Sprint 5",
+              "id": "36201",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36202",
+              "value": "DRP",
+              "id": "36202",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36203",
+              "value": "Next PI",
+              "id": "36203",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35758",
+          "value": "31 PI3",
+          "id": "35758",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36204",
+              "value": "Sprint 1",
+              "id": "36204",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36205",
+              "value": "Sprint 2",
+              "id": "36205",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36206",
+              "value": "Sprint 3",
+              "id": "36206",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36207",
+              "value": "Sprint 4",
+              "id": "36207",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36208",
+              "value": "Sprint 5",
+              "id": "36208",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36209",
+              "value": "Sprint 6",
+              "id": "36209",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36210",
+              "value": "DRP",
+              "id": "36210",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36211",
+              "value": "Next PI",
+              "id": "36211",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35759",
+          "value": "31 PI4",
+          "id": "35759",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36212",
+              "value": "Sprint 1",
+              "id": "36212",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36213",
+              "value": "Sprint 2",
+              "id": "36213",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36214",
+              "value": "Sprint 3",
+              "id": "36214",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36215",
+              "value": "Sprint 4",
+              "id": "36215",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36216",
+              "value": "Sprint 5",
+              "id": "36216",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36217",
+              "value": "DRP",
+              "id": "36217",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36218",
+              "value": "Next PI",
+              "id": "36218",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35760",
+          "value": "32 PI1",
+          "id": "35760",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36219",
+              "value": "Sprint 1",
+              "id": "36219",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36220",
+              "value": "Sprint 2",
+              "id": "36220",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36221",
+              "value": "Sprint 3",
+              "id": "36221",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36222",
+              "value": "Sprint 4",
+              "id": "36222",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36223",
+              "value": "Sprint 5",
+              "id": "36223",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36224",
+              "value": "Sprint 6",
+              "id": "36224",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36225",
+              "value": "DRP",
+              "id": "36225",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36226",
+              "value": "Next PI",
+              "id": "36226",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35761",
+          "value": "32 PI2",
+          "id": "35761",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36227",
+              "value": "Sprint 1",
+              "id": "36227",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36228",
+              "value": "Sprint 2",
+              "id": "36228",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36229",
+              "value": "Sprint 3",
+              "id": "36229",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36230",
+              "value": "Sprint 4",
+              "id": "36230",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36231",
+              "value": "Sprint 5",
+              "id": "36231",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36232",
+              "value": "DRP",
+              "id": "36232",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36233",
+              "value": "Next PI",
+              "id": "36233",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35762",
+          "value": "32 PI3",
+          "id": "35762",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36234",
+              "value": "Sprint 1",
+              "id": "36234",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36235",
+              "value": "Sprint 2",
+              "id": "36235",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36236",
+              "value": "Sprint 3",
+              "id": "36236",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36237",
+              "value": "Sprint 4",
+              "id": "36237",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36238",
+              "value": "Sprint 5",
+              "id": "36238",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36239",
+              "value": "Sprint 6",
+              "id": "36239",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36240",
+              "value": "DRP",
+              "id": "36240",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36241",
+              "value": "Next PI",
+              "id": "36241",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35763",
+          "value": "32 PI4",
+          "id": "35763",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36242",
+              "value": "Sprint 1",
+              "id": "36242",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36243",
+              "value": "Sprint 2",
+              "id": "36243",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36244",
+              "value": "Sprint 3",
+              "id": "36244",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36245",
+              "value": "Sprint 4",
+              "id": "36245",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36246",
+              "value": "Sprint 5",
+              "id": "36246",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36247",
+              "value": "DRP",
+              "id": "36247",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36248",
+              "value": "Next PI",
+              "id": "36248",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35764",
+          "value": "33 PI1",
+          "id": "35764",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36249",
+              "value": "Sprint 1",
+              "id": "36249",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36250",
+              "value": "Sprint 2",
+              "id": "36250",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36251",
+              "value": "Sprint 3",
+              "id": "36251",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36252",
+              "value": "Sprint 4",
+              "id": "36252",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36253",
+              "value": "Sprint 5",
+              "id": "36253",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36254",
+              "value": "Sprint 6",
+              "id": "36254",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36255",
+              "value": "DRP",
+              "id": "36255",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36256",
+              "value": "Next PI",
+              "id": "36256",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35765",
+          "value": "33 PI2",
+          "id": "35765",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36257",
+              "value": "Sprint 1",
+              "id": "36257",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36258",
+              "value": "Sprint 2",
+              "id": "36258",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36259",
+              "value": "Sprint 3",
+              "id": "36259",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36260",
+              "value": "Sprint 4",
+              "id": "36260",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36261",
+              "value": "Sprint 5",
+              "id": "36261",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36262",
+              "value": "DRP",
+              "id": "36262",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36263",
+              "value": "Next PI",
+              "id": "36263",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35766",
+          "value": "33 PI3",
+          "id": "35766",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36264",
+              "value": "Sprint 1",
+              "id": "36264",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36265",
+              "value": "Sprint 2",
+              "id": "36265",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36266",
+              "value": "Sprint 3",
+              "id": "36266",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36267",
+              "value": "Sprint 4",
+              "id": "36267",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36268",
+              "value": "Sprint 5",
+              "id": "36268",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36269",
+              "value": "Sprint 6",
+              "id": "36269",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36270",
+              "value": "DRP",
+              "id": "36270",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36271",
+              "value": "Next PI",
+              "id": "36271",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/35767",
+          "value": "33 PI4",
+          "id": "35767",
+          "disabled": false,
+          "children": [
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36272",
+              "value": "Sprint 1",
+              "id": "36272",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36273",
+              "value": "Sprint 2",
+              "id": "36273",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36274",
+              "value": "Sprint 3",
+              "id": "36274",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36275",
+              "value": "Sprint 4",
+              "id": "36275",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36276",
+              "value": "Sprint 5",
+              "id": "36276",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36277",
+              "value": "DRP",
+              "id": "36277",
+              "disabled": false
+            },
+            {
+              "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/36278",
+              "value": "Next PI",
+              "id": "36278",
+              "disabled": false
+            }
+          ]
+        }
+      ]
+    },
+    "customfield_11023": {
+      "required": false,
+      "schema": {
+        "type": "option",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:select",
+        "customId": 11023
+      },
+      "name": "Target Sprint Completion",
+      "fieldId": "customfield_11023",
+      "operations": [
+        "set"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/13597",
+          "value": "Sprint 1",
+          "id": "13597",
+          "disabled": false
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/13598",
+          "value": "Sprint 2",
+          "id": "13598",
+          "disabled": false
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/13599",
+          "value": "Sprint 3",
+          "id": "13599",
+          "disabled": false
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/13600",
+          "value": "Sprint 4",
+          "id": "13600",
+          "disabled": false
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/13601",
+          "value": "Sprint 5",
+          "id": "13601",
+          "disabled": false
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/15028",
+          "value": "Sprint 6",
+          "id": "15028",
+          "disabled": false
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/17992",
+          "value": "DRP",
+          "id": "17992",
+          "disabled": false
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/28655",
+          "value": "Next PI",
+          "id": "28655",
+          "disabled": false
+        }
+      ]
+    },
+    "customfield_10169": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textfield",
+        "customId": 10169
+      },
+      "name": "Peer Review ID",
+      "fieldId": "customfield_10169",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_10005": {
+      "required": false,
+      "schema": {
+        "type": "array",
+        "items": "string",
+        "custom": "com.pyxis.greenhopper.jira:gh-sprint",
+        "customId": 10005
+      },
+      "name": "Sprint",
+      "fieldId": "customfield_10005",
+      "operations": [
+        "set"
+      ]
+    },
+    "attachment": {
+      "required": false,
+      "schema": {
+        "type": "array",
+        "items": "attachment",
+        "system": "attachment"
+      },
+      "name": "Attachment",
+      "fieldId": "attachment",
+      "operations": []
+    },
+    "issuelinks": {
+      "required": false,
+      "schema": {
+        "type": "array",
+        "items": "issuelinks",
+        "system": "issuelinks"
+      },
+      "name": "Linked Issues",
+      "fieldId": "issuelinks",
+      "autoCompleteUrl": "https://jiraprod.aptiv.com/rest/api/2/issue/picker?currentProjectId=&showSubTaskParent=true&showSubTasks=true&currentIssueKey=GTJ-687&query=",
+      "operations": [
+        "add"
+      ]
+    },
+    "labels": {
+      "required": false,
+      "schema": {
+        "type": "array",
+        "items": "string",
+        "system": "labels"
+      },
+      "name": "Labels",
+      "fieldId": "labels",
+      "autoCompleteUrl": "https://jiraprod.aptiv.com/rest/api/1.0/labels/suggest?query=",
+      "operations": [
+        "add",
+        "set",
+        "remove"
+      ]
+    },
+    "customfield_10159": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textarea",
+        "customId": 10159
+      },
+      "name": "scm_info",
+      "fieldId": "customfield_10159",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_18300": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textarea",
+        "customId": 18300
+      },
+      "name": "Pending Reviewers",
+      "fieldId": "customfield_18300",
+      "operations": [
+        "set"
+      ]
+    },
+    "assignee": {
+      "required": false,
+      "schema": {
+        "type": "user",
+        "system": "assignee"
+      },
+      "name": "Assignee",
+      "fieldId": "assignee",
+      "autoCompleteUrl": "https://jiraprod.aptiv.com/rest/api/latest/user/assignable/search?issueKey=GTJ-687&username=",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_10555": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textfield",
+        "customId": 10555
+      },
+      "name": "Custom String 1",
+      "fieldId": "customfield_10555",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_12010": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textfield",
+        "customId": 12010
+      },
+      "name": "Custom String 2",
+      "fieldId": "customfield_12010",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_12011": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textfield",
+        "customId": 12011
+      },
+      "name": "Custom String 3",
+      "fieldId": "customfield_12011",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_10545": {
+      "required": false,
+      "schema": {
+        "type": "date",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:datepicker",
+        "customId": 10545
+      },
+      "name": "Custom Date 1",
+      "fieldId": "customfield_10545",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_12000": {
+      "required": false,
+      "schema": {
+        "type": "date",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:datepicker",
+        "customId": 12000
+      },
+      "name": "Custom Date 2",
+      "fieldId": "customfield_12000",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_11033": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textarea",
+        "customId": 11033
+      },
+      "name": "Custom Text Box 1",
+      "fieldId": "customfield_11033",
+      "operations": [
+        "set"
+      ]
+    },
+    "customfield_11034": {
+      "required": false,
+      "schema": {
+        "type": "version",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:version",
+        "customId": 11034
+      },
+      "name": "Custom Version 1",
+      "fieldId": "customfield_11034",
+      "operations": [
+        "set"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/126027",
+          "id": "126027",
+          "description": "ISPFW 2.5.16 - First release in 2024",
+          "name": "ISPFW2.5.16",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2024-02-01"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/127510",
+          "id": "127510",
+          "description": "ISPFW 2.5.17",
+          "name": "ISPFW2.5.17",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2024-04-02"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/131345",
+          "id": "131345",
+          "description": "Bug fix found in 2.5.17",
+          "name": "ISPFW2.5.19",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2024-04-22"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/131651",
+          "id": "131651",
+          "description": "",
+          "name": "NWOFV1.0",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2024-04-23"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/131809",
+          "id": "131809",
+          "description": "",
+          "name": "CoreFW2.5.20",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2024-06-17"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/135781",
+          "id": "135781",
+          "description": "",
+          "name": "CoreFW2.5.21",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2024-06-26"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/135782",
+          "id": "135782",
+          "description": "",
+          "name": "CoreFW2.5.22",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2024-08-09"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/142051",
+          "id": "142051",
+          "description": "",
+          "name": "CoreFW2.5.23",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2024-10-24"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/146279",
+          "id": "146279",
+          "description": "",
+          "name": "CoreFW2.5.25",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2025-01-03"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/151054",
+          "id": "151054",
+          "name": "CoreFW2.5.27_Beta3.1",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2025-06-05"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/151488",
+          "id": "151488",
+          "name": "CoreFW2.5.27",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2025-06-05"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/155309",
+          "id": "155309",
+          "name": "2.5.29",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2025-06-05"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/155256",
+          "id": "155256",
+          "description": "",
+          "name": "2.5.30",
+          "archived": false,
+          "released": false
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/157661",
+          "id": "157661",
+          "description": "",
+          "name": "CoreFw 2.7.1",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2025-08-11"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/157693",
+          "id": "157693",
+          "description": "",
+          "name": "CoreFw 2.7.0",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2025-08-06"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/158612",
+          "id": "158612",
+          "description": "",
+          "name": "CoreFw 2.6.4",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2025-08-08"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/158755",
+          "id": "158755",
+          "description": "",
+          "name": "CoreFw 2.7.2",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2025-08-26"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/159356",
+          "id": "159356",
+          "description": "",
+          "name": "CoreFw 2.7.3",
+          "archived": false,
+          "released": true,
+          "releaseDate": "2025-09-04"
+        },
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/version/159920",
+          "id": "159920",
+          "description": "",
+          "name": "CoreFw 2.7.4",
+          "archived": false,
+          "released": false,
+          "releaseDate": "2025-09-15"
+        }
+      ]
+    },
+    "customfield_13500": {
+      "required": false,
+      "schema": {
+        "type": "option",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:select",
+        "customId": 13500
+      },
+      "name": "Custom List 1",
+      "fieldId": "customfield_13500",
+      "operations": [
+        "set"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/23505",
+          "value": "Raise ServiceNow incident to configure for your project",
+          "id": "23505",
+          "disabled": false
+        }
+      ]
+    },
+    "customfield_13501": {
+      "required": false,
+      "schema": {
+        "type": "option",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:select",
+        "customId": 13501
+      },
+      "name": "Custom List 2",
+      "fieldId": "customfield_13501",
+      "operations": [
+        "set"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/23506",
+          "value": "Raise ServiceNow incident to configure for your project",
+          "id": "23506",
+          "disabled": false
+        }
+      ]
+    },
+    "customfield_13502": {
+      "required": false,
+      "schema": {
+        "type": "option",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:select",
+        "customId": 13502
+      },
+      "name": "Custom List 3",
+      "fieldId": "customfield_13502",
+      "operations": [
+        "set"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/23507",
+          "value": "Raise ServiceNow incident to configure for your project",
+          "id": "23507",
+          "disabled": false
+        }
+      ]
+    },
+    "customfield_15600": {
+      "required": false,
+      "schema": {
+        "type": "array",
+        "items": "option",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:multiselect",
+        "customId": 15600
+      },
+      "name": "Custom Multi-select",
+      "fieldId": "customfield_15600",
+      "operations": [
+        "add",
+        "set",
+        "remove"
+      ],
+      "allowedValues": [
+        {
+          "self": "https://jiraprod.aptiv.com/rest/api/2/customFieldOption/37198",
+          "value": "Raise ServiceNow incident to configure for your project",
+          "id": "37198",
+          "disabled": false
+        }
+      ]
+    },
+    "customfield_15601": {
+      "required": false,
+      "schema": {
+        "type": "option-with-child",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:cascadingselect",
+        "customId": 15601
+      },
+      "name": "Custom Cascading",
+      "fieldId": "customfield_15601",
+      "operations": [
+        "set"
+      ],
+      "allowedValues": []
+    },
+    "customfield_10181": {
+      "required": false,
+      "schema": {
+        "type": "string",
+        "custom": "com.atlassian.jira.plugin.system.customfieldtypes:textfield",
+        "customId": 10181
+      },
+      "name": "reqid",
+      "fieldId": "customfield_10181",
+      "operations": [
+        "set"
+      ]
+    },
+    "comment": {
+      "required": false,
+      "schema": {
+        "type": "comments-page",
+        "system": "comment"
+      },
+      "name": "Comment",
+      "fieldId": "comment",
+      "operations": [
+        "add",
+        "edit",
+        "remove"
+      ]
+    }
+  }
+}

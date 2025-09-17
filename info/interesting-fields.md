@@ -46,3 +46,21 @@
 `issuetype`: has it's *operations* array empty. maybe I cannot change the issue type via this endpoint?
 
 ## IssueKey/comments
+
+## Board
+
+* this is part of the agile/1.0 API as opposed to the traditional api/2.
+
+```
+{
+  "id": 14190,
+  "self": "https://jiraprod.aptiv.com/rest/agile/1.0/board/14190",
+  "name": "CoreFW_AutoScrum",
+  "type": "scrum"
+}
+```
+
+## `agile/1.0/board/{boardID}/sprint`
+
+* This returns all the sprints for a (scrum/kanban) board.
+* Which can then be used to find out the active sprint.
