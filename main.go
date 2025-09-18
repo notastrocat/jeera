@@ -7,8 +7,8 @@ import (
 	"log"
 	"os"
 	"strings"
+	"strconv"
 )
-// "strconv"
 
 var DEBUGflag = flag.Bool("debug", false, "enable debugging messages for the app")
 
@@ -37,10 +37,16 @@ func main() {
 		os.Exit(1)
 	}
 
+	var boardID    = flag.Int("board", 0, "JIRA Board ID (required for fetching sprint issues)")
+	var boardName  = flag.String("board-name", "", "JIRA Board Name (if Board ID is not known)")
+
+	var projectKey string
+
 	// Create JIRA client
 	client := NewJiraClient(config)
 
 	flag.Parse()
+
 	// Start interactive CLI
 	if *DEBUGflag {
 		fmt.Println("JIRA Auto - Issue Management Tool (Running in Debug Mode)")
@@ -48,53 +54,47 @@ func main() {
 		fmt.Println("JIRA Auto - Issue Management Tool")
 	}
 	fmt.Println("=================================")
+
 	fmt.Printf("Connected to: %s\n", config.BaseURL)
-	fmt.Printf("Username: %s\n", config.Username)
+	user, err := client.GetCurrentUser()
+	if err != nil {
+		log.Printf("Error fetching user details: %v", err)
+	}
+	fmt.Printf("Display Name: %s\n", user.DisplayName)
+	fmt.Printf("Name: %s\n", user.Name)
+
+	client.config.Username = user.Name    // override username with the actual name fetched from JIRA instance
+
 	if config.UsePAT {
 		fmt.Printf("Authentication: Personal Access Token (Bearer)\n\n")
 	} else {
 		fmt.Printf("Authentication: API Token (Basic)\n\n")
 	}
 
-	scanner := bufio.NewScanner(os.Stdin)
+	{
+		// fmt.Printf("do you know your board ID? (ID or enter 0 for no): ")
+		// if _, err := fmt.Scan(&boardID); err != nil {
+		// 	log.Printf("Invalid input: %v", err)
+		// 	return
+		// } else {
+		// 	if *boardID == 0 {
+		// 		fmt.Printf("please enter your board name: ")
+		// 		if _, err := fmt.Scan(boardName); err != nil {
+		// 			log.Printf("Invalid input: %v", err)
+		// 			return
+		// 		}
+		// 	}
+		// }
 
-	for {
-		fmt.Println("Available commands:")
-		fmt.Println("  1. Create issue")
-		fmt.Println("  2. Get issue")
-		fmt.Println("  3. Update issue")
-		fmt.Println("  4. Transition issue")
-		fmt.Println("  5. Get comments")
-		fmt.Println("  6. Bulk create issues")
-		fmt.Println("  7. Get Active Sprint Tasks")
-		fmt.Println("  8. Exit")
-		fmt.Print("\nEnter your choice (1-8): ")
-
-		var boardID int
-		var boardName string
-		fmt.Printf("do you know your board ID? (ID or enter 0 for no): ")
-		if _, err := fmt.Scan(&boardID); err != nil {
-			log.Printf("Invalid input: %v", err)
-			return
-		} else {
-			if boardID == 0 {
-				fmt.Printf("please enter your board name: ")
-				if _, err := fmt.Scan(&boardName); err != nil {
-					log.Printf("Invalid input: %v", err)
-					return
-				}
-			}
-		}
-
-		if boardID == 0 && boardName == "" {
+		if *boardID == 0 && *boardName == "" {
 			fmt.Println("`board ID` or `board name` is required to proceed.")
 			return
 		}
 
 		var projectKeys []string
-		if boardID != 0 {
+		if *boardID != 0 {
 			var err error
-			projectKeys, err = client.GetProjectKeys(boardID, projectKeys)
+			projectKeys, err = client.GetProjectKeys(*boardID, projectKeys)
 			if err != nil {
 				log.Printf("Error getting project keys: %v", err)
 				return
@@ -106,16 +106,19 @@ func main() {
 				fmt.Printf("Key %d: %s\n", i+1, key)
 			}
 			// probably select the first entry as the default key for the session...(and maybe ask to change it?)
+			projectKey = projectKeys[0]
 		} else {
-			id, err := client.GetBoardID(boardName)
-			if err != nil {
-				log.Printf("Error getting board ID: %v", err)
+			var err error
+			id, idErr := client.GetBoardID(*boardName)
+			if idErr != nil {
+				log.Printf("Error getting board ID: %v", idErr)
 				return
 			}
-			boardID = id
-			fmt.Println("Board ID:", boardID)
+			*boardID = id
+			fmt.Println("Board ID:", *boardID)
+			fmt.Println("Board Name:", *boardName)
 
-			projectKeys, err = client.GetProjectKeys(boardID, projectKeys)
+			projectKeys, err = client.GetProjectKeys(*boardID, projectKeys)
 			if err != nil {
 				log.Printf("Error getting project keys: %v", err)
 				return
@@ -127,19 +130,20 @@ func main() {
 				fmt.Printf("Key %d: %s\n", i+1, key)
 			}
 			// probably select the first entry as the default key for the session...(and maybe ask to change it?)
+			projectKey = projectKeys[0]
 		}
 
-		id, sprintName, err := client.GetActiveSprintID(boardID)
+		activeSprintID, sprintName, err := client.GetActiveSprintID(*boardID)
 		if err != nil {
 			log.Printf("Error getting active sprint ID: %v", err)
 			return
 		}
-		fmt.Printf("Active Sprint: %s (ID: %d)\n", sprintName, id)
+		fmt.Printf("Active Sprint: %s (ID: %d)\n", sprintName, activeSprintID)
 
 		fmt.Println("Your issues in the active sprint:-")
 
 		// change the first parameter to some decided name later
-		myIssues, err := client.GetMyIssuesInActiveSprint(projectKeys[0], sprintName, client.config.Username)
+		myIssues, err := client.GetMyIssuesInActiveSprint(projectKey, sprintName, user.Name)
 		if err != nil {
 			log.Printf("Error getting issues in active sprint: %v", err)
 			return
@@ -153,262 +157,277 @@ func main() {
 			fmt.Printf("--------------------------------\n\n")
 		}
 		fmt.Printf("Total Story Points assigned to you in this sprint: %.f\n\n", totalStoryPoints)
+	}
 
-		scanner.Scan()
-		choice := strings.TrimSpace(scanner.Text())
+	// scanner := bufio.NewScanner(os.Stdin)
 
-		switch choice {
-		case "1":
-			fmt.Println("not implemented yet")
-			// createIssueInteractive(client, scanner)
-		case "2":
-			fmt.Println("not implemented yet")
-			// getIssueInteractive(client, scanner)
-		case "3":
-			fmt.Println("not implemented yet")
-			// updateIssueInteractive(client, scanner)
-		case "4":
-			fmt.Println("not implemented yet")
-			// doTransitionInteractive(client, scanner)
-		case "5":
-			fmt.Println("not implemented yet")
-			// getCommentsInteractive(client, scanner)
-		case "6":
-			fmt.Println("not implemented yet")
-			// updateIssueInteractive(client, scanner)
-		case "7":
-			fmt.Println("not implemented yet")
-			// getActiveSprintTasksInteractive(client, scanner)
-			// fmt.Println("not implemented yet")
-			// updateIssueInteractive(client, scanner)
-		case "8":
-			fmt.Println("Goodbye!")
-			return
-		default:
-			fmt.Println("Invalid choice. Please enter 1-8.")
-		}
+	// for {
+	// 	fmt.Println("Available commands:")
+	// 	fmt.Println("  1. Create issue")
+	// 	fmt.Println("  2. Get issue")
+	// 	fmt.Println("  3. Update issue")
+	// 	fmt.Println("  4. Transition issue")
+	// 	fmt.Println("  5. Get comments")
+	// 	fmt.Println("  6. Bulk create issues")
+	// 	fmt.Println("  7. Get Active Sprint Tasks")
+	// 	fmt.Println("  8. Exit")
+	// 	fmt.Print("\nEnter your choice (1-8): ")
 
-		fmt.Println()
+	// 	scanner.Scan()
+	// 	choice := strings.TrimSpace(scanner.Text())
+
+	// 	switch choice {
+	// 	case "1":
+	// 		fmt.Println("not implemented yet")
+	// 		// createIssueInteractive(client, scanner)
+	// 	case "2":
+	// 		fmt.Println("not implemented yet")
+	// 		// getIssueInteractive(client, scanner)
+	// 	case "3":
+	// 		fmt.Println("not implemented yet")
+	// 		// updateIssueInteractive(client, scanner)
+	// 	case "4":
+	// 		fmt.Println("not implemented yet")
+	// 		// doTransitionInteractive(client, scanner)
+	// 	case "5":
+	// 		fmt.Println("not implemented yet")
+	// 		// getCommentsInteractive(client, scanner)
+	// 	case "6":
+	// 		fmt.Println("not implemented yet")
+	// 		// updateIssueInteractive(client, scanner)
+	// 	case "7":
+	// 		fmt.Println("not implemented yet")
+	// 		// getActiveSprintTasksInteractive(client, scanner)
+	// 		// fmt.Println("not implemented yet")
+	// 		// updateIssueInteractive(client, scanner)
+	// 	case "8":
+	// 		fmt.Println("Goodbye!")
+	// 		return
+	// 	default:
+	// 		fmt.Println("Invalid choice. Please enter 1-8.")
+	// 	}
+
+	// 	fmt.Println()
+	// }
+}
+
+func createIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
+	fmt.Println("\n--- Create New Issue ---")
+	
+	fmt.Print("Project Key: ")
+	scanner.Scan()
+	projectKey := strings.TrimSpace(scanner.Text())
+	
+	fmt.Print("Issue Type (e.g., Bug, Task, Story): ")
+	scanner.Scan()
+	issueType := strings.TrimSpace(scanner.Text())
+	
+	fmt.Print("Summary: ")
+	scanner.Scan()
+	summary := strings.TrimSpace(scanner.Text())
+	
+	fmt.Print("Description (optional): ")
+	scanner.Scan()
+	description := strings.TrimSpace(scanner.Text())
+
+	issue := &Issue{
+		Fields: IssueFields{
+			Project: &Project{
+				Key: projectKey,
+			},
+			IssueType: &IssueType{
+				Name: issueType,
+			},
+			Summary:     summary,
+			Description: description,
+		},
+	}
+
+	result, err := client.CreateIssue(issue)
+	if err != nil {
+		log.Printf("Error creating issue: %v", err)
+		return
+	}
+
+	fmt.Printf("✅ Issue created successfully!\n")
+	fmt.Printf("Key: %s\n", result.Key)
+	fmt.Printf("ID: %s\n", result.ID)
+}
+
+func getIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
+	fmt.Println("\n--- Get Issue ---")
+	
+	fmt.Print("Issue ID or Key: ")
+	scanner.Scan()
+	issueIDOrKey := strings.TrimSpace(scanner.Text())
+
+	issue, err := client.GetIssue(issueIDOrKey)
+	if err != nil {
+		log.Printf("Error getting issue: %v", err)
+		return
+	}
+
+	fmt.Printf("✅ Issue retrieved successfully!\n")
+	fmt.Printf("Key: %s\n", issue.Key)
+	fmt.Printf("ID: %s\n", issue.ID)
+	fmt.Printf("Summary: %s\n", issue.Fields.Summary)
+	fmt.Printf("Description: %s\n", issue.Fields.Description)
+	fmt.Printf("Issue Type: %s\n", issue.Fields.IssueType.Name)
+	fmt.Printf("Assignee: %s\n", issue.Fields.Assignee.DisplayName)
+	if issue.Fields.Status != nil {
+		fmt.Printf("Status: %s\n", issue.Fields.Status.Name)
+	}
+	if issue.Fields.Priority != nil {
+		fmt.Printf("Priority: %s\n", issue.Fields.Priority.Name)
 	}
 }
 
-// func createIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
-// 	fmt.Println("\n--- Create New Issue ---")
-	
-// 	fmt.Print("Project Key: ")
-// 	scanner.Scan()
-// 	projectKey := strings.TrimSpace(scanner.Text())
-	
-// 	fmt.Print("Issue Type (e.g., Bug, Task, Story): ")
-// 	scanner.Scan()
-// 	issueType := strings.TrimSpace(scanner.Text())
-	
-// 	fmt.Print("Summary: ")
-// 	scanner.Scan()
-// 	summary := strings.TrimSpace(scanner.Text())
-	
-// 	fmt.Print("Description (optional): ")
-// 	scanner.Scan()
-// 	description := strings.TrimSpace(scanner.Text())
+func updateIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
+	fmt.Println("\n--- Update Issue ---")
 
-// 	issue := &Issue{
-// 		Fields: IssueFields{
-// 			Project: &Project{
-// 				Key: projectKey,
-// 			},
-// 			IssueType: &IssueType{
-// 				Name: issueType,
-// 			},
-// 			Summary:     summary,
-// 			Description: description,
-// 		},
-// 	}
+	fmt.Print("Issue ID or Key: ")
+	scanner.Scan()
+	issueIDOrKey := strings.TrimSpace(scanner.Text())
 
-// 	result, err := client.CreateIssue(issue)
-// 	if err != nil {
-// 		log.Printf("Error creating issue: %v", err)
-// 		return
-// 	}
+	fmt.Print("New Summary (leave empty to keep current): ")
+	scanner.Scan()
+	summary := strings.TrimSpace(scanner.Text())
 
-// 	fmt.Printf("✅ Issue created successfully!\n")
-// 	fmt.Printf("Key: %s\n", result.Key)
-// 	fmt.Printf("ID: %s\n", result.ID)
-// }
+	fmt.Print("New Description (leave empty to keep current): ")
+	scanner.Scan()
+	description := strings.TrimSpace(scanner.Text())
 
-// func getIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
-// 	fmt.Println("\n--- Get Issue ---")
-	
-// 	fmt.Print("Issue ID or Key: ")
-// 	scanner.Scan()
-// 	issueIDOrKey := strings.TrimSpace(scanner.Text())
+	fmt.Print("New Acceptance Criteria (leave empty to keep current): ")
+	scanner.Scan()
+	acceptanceCriteria := strings.TrimSpace(scanner.Text())
 
-// 	issue, err := client.GetIssue(issueIDOrKey)
-// 	if err != nil {
-// 		log.Printf("Error getting issue: %v", err)
-// 		return
-// 	}
+	fmt.Print("New Story Points (leave empty to keep current): ")
+	scanner.Scan()
+	// storyPoints should be an integer
+	storyPoints := strings.TrimSpace(scanner.Text())
 
-// 	fmt.Printf("✅ Issue retrieved successfully!\n")
-// 	fmt.Printf("Key: %s\n", issue.Key)
-// 	fmt.Printf("ID: %s\n", issue.ID)
-// 	fmt.Printf("Summary: %s\n", issue.Fields.Summary)
-// 	fmt.Printf("Description: %s\n", issue.Fields.Description)
-// 	fmt.Printf("Issue Type: %s\n", issue.Fields.IssueType.Name)
-// 	fmt.Printf("Assignee: %s\n", issue.Fields.Assignee.DisplayName)
-// 	if issue.Fields.Status != nil {
-// 		fmt.Printf("Status: %s\n", issue.Fields.Status.Name)
-// 	}
-// 	if issue.Fields.Priority != nil {
-// 		fmt.Printf("Priority: %s\n", issue.Fields.Priority.Name)
-// 	}
-// }
+	fmt.Print("New Assignee ID (leave empty to keep current): ")
+	scanner.Scan()
+	assignee := strings.TrimSpace(scanner.Text())
 
-// func updateIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
-// 	fmt.Println("\n--- Update Issue ---")
+	// Build update fields
+	fields := IssueFields{}
+	if summary != "" {
+		fields.Summary = summary
+	}
+	if description != "" {
+		fields.Description = description
+	}
+	if acceptanceCriteria != "" {
+		fields.AcceptanceCriteria = acceptanceCriteria
+	}
+	if storyPoints != "" {
+		if sp, err := strconv.ParseFloat(storyPoints, 32); err != nil {
+			fmt.Printf("Invalid story points value: %v\n", err)
+		} else {
+			fields.StoryPoints = float32(sp)
+		}
+	}
+	if assignee != "" {
+		tmpAssignee := &Assignee{}
+		tmpAssignee.Name = assignee
 
-// 	fmt.Print("Issue ID or Key: ")
-// 	scanner.Scan()
-// 	issueIDOrKey := strings.TrimSpace(scanner.Text())
+		if err := client.UpdateAssignee(issueIDOrKey, tmpAssignee); err != nil {
+			log.Printf("Error updating assignee: %v", err)
+			return
+		}
+		fmt.Printf("✅ Issue %s assigned to %s successfully!\n", issueIDOrKey, assignee)
+	}
 
-// 	fmt.Print("New Summary (leave empty to keep current): ")
-// 	scanner.Scan()
-// 	summary := strings.TrimSpace(scanner.Text())
+	if fields.Summary == "" && fields.Description == "" && fields.AcceptanceCriteria == "" && fields.StoryPoints <= 0.0 {
+		fmt.Println("No changes specified.")
+		return
+	}
 
-// 	fmt.Print("New Description (leave empty to keep current): ")
-// 	scanner.Scan()
-// 	description := strings.TrimSpace(scanner.Text())
+	err := client.UpdateIssue(issueIDOrKey, fields)
+	if err != nil {
+		log.Printf("Error updating issue: %v", err)
+		return
+	}
 
-// 	fmt.Print("New Acceptance Criteria (leave empty to keep current): ")
-// 	scanner.Scan()
-// 	acceptanceCriteria := strings.TrimSpace(scanner.Text())
+	fmt.Printf("✅ Issue %s updated successfully!\n", issueIDOrKey)
+}
 
-// 	fmt.Print("New Story Points (leave empty to keep current): ")
-// 	scanner.Scan()
-// 	// storyPoints should be an integer
-// 	storyPoints := strings.TrimSpace(scanner.Text())
+func doTransitionInteractive(client *JiraClient, scanner *bufio.Scanner) {
+	fmt.Println("\n--- Transition Issue ---")
 
-// 	fmt.Print("New Assignee ID (leave empty to keep current): ")
-// 	scanner.Scan()
-// 	assignee := strings.TrimSpace(scanner.Text())
+	fmt.Print("Issue ID or Key: ")
+	scanner.Scan()
+	issueIDOrKey := strings.TrimSpace(scanner.Text())
 
-// 	// Build update fields
-// 	fields := IssueFields{}
-// 	if summary != "" {
-// 		fields.Summary = summary
-// 	}
-// 	if description != "" {
-// 		fields.Description = description
-// 	}
-// 	if acceptanceCriteria != "" {
-// 		fields.AcceptanceCriteria = acceptanceCriteria
-// 	}
-// 	if storyPoints != "" {
-// 		if sp, err := strconv.ParseFloat(storyPoints, 32); err != nil {
-// 			fmt.Printf("Invalid story points value: %v\n", err)
-// 		} else {
-// 			fields.StoryPoints = float32(sp)
-// 		}
-// 	}
-// 	if assignee != "" {
-// 		tmpAssignee := &Assignee{}
-// 		tmpAssignee.Name = assignee
+	// Fetch available transitions
+	transitions, err := client.GetTransitions(issueIDOrKey)
+	if err != nil {
+		log.Printf("Error fetching transitions: %v", err)
+		return
+	}
 
-// 		if err := client.UpdateAssignee(issueIDOrKey, tmpAssignee); err != nil {
-// 			log.Printf("Error updating assignee: %v", err)
-// 			return
-// 		}
-// 		fmt.Printf("✅ Issue %s assigned to %s successfully!\n", issueIDOrKey, assignee)
-// 	}
+	if len(transitions) == 0 {
+		fmt.Println("No transitions available for this issue.")
+		return
+	}
 
-// 	if fields.Summary == "" && fields.Description == "" && fields.AcceptanceCriteria == "" && fields.StoryPoints <= 0.0 {
-// 		fmt.Println("No changes specified.")
-// 		return
-// 	}
+	fmt.Println("Available Transitions:")
+	for i, t := range transitions {
+		fmt.Printf("  %d. %s (ID: %s)\n", i+1, t.Name, t.ID)
+	}
 
-// 	err := client.UpdateIssue(issueIDOrKey, fields)
-// 	if err != nil {
-// 		log.Printf("Error updating issue: %v", err)
-// 		return
-// 	}
+	fmt.Print("\nSelect transition number: ")
+	scanner.Scan()
+	choiceStr := strings.TrimSpace(scanner.Text())
+	var choice int
+	_, err = fmt.Sscanf(choiceStr, "%d", &choice)
+	if err != nil || choice < 1 || choice > len(transitions) {
+		fmt.Println("Invalid choice.")
+		return
+	}
 
-// 	fmt.Printf("✅ Issue %s updated successfully!\n", issueIDOrKey)
-// }
+	selectedTransition := transitions[choice-1]
 
-// func doTransitionInteractive(client *JiraClient, scanner *bufio.Scanner) {
-// 	fmt.Println("\n--- Transition Issue ---")
+	err = client.DoTransition(issueIDOrKey, selectedTransition.ID)
+	if err != nil {
+		log.Printf("Error performing transition: %v", err)
+		return
+	}
 
-// 	fmt.Print("Issue ID or Key: ")
-// 	scanner.Scan()
-// 	issueIDOrKey := strings.TrimSpace(scanner.Text())
+	fmt.Printf("✅ Issue %s transitioned to '%s' successfully!\n", issueIDOrKey, selectedTransition.Name)
+}
 
-// 	// Fetch available transitions
-// 	transitions, err := client.GetTransitions(issueIDOrKey)
-// 	if err != nil {
-// 		log.Printf("Error fetching transitions: %v", err)
-// 		return
-// 	}
+func getCommentsInteractive(client *JiraClient, scanner *bufio.Scanner) {
+	fmt.Println("\n--- Get Comments ---")
 
-// 	if len(transitions) == 0 {
-// 		fmt.Println("No transitions available for this issue.")
-// 		return
-// 	}
+	fmt.Print("Issue ID or Key: ")
+	scanner.Scan()
+	issueIDOrKey := strings.TrimSpace(scanner.Text())
 
-// 	fmt.Println("Available Transitions:")
-// 	for i, t := range transitions {
-// 		fmt.Printf("  %d. %s (ID: %s)\n", i+1, t.Name, t.ID)
-// 	}
+	comments, err := client.GetComments(issueIDOrKey)
+	if err != nil {
+		log.Printf("Error getting comments: %v", err)
+		return
+	}
 
-// 	fmt.Print("\nSelect transition number: ")
-// 	scanner.Scan()
-// 	choiceStr := strings.TrimSpace(scanner.Text())
-// 	var choice int
-// 	_, err = fmt.Sscanf(choiceStr, "%d", &choice)
-// 	if err != nil || choice < 1 || choice > len(transitions) {
-// 		fmt.Println("Invalid choice.")
-// 		return
-// 	}
+	if len(comments) == 0 {
+		fmt.Println("No comments found for this issue.")
+		return
+	}
 
-// 	selectedTransition := transitions[choice-1]
+	fmt.Printf("✅ Comments retrieved successfully! Total: %d\n", len(comments))
+	for _, c := range comments {
+		fmt.Printf("\nCommentID %s\n", c.ID)
+		fmt.Printf("Author: %s\n", c.Author)
+		fmt.Printf("Created: %s\n", c.Created)
+		fmt.Printf("Last Updated: %s\n", c.LastUpdated)
+		//          Last Updated: 2025-09-08T11:18:04.666+0200 -> longest field
+		fmt.Printf("------------------------------------------\n%s\n\n", c.Body)
+	}
+}
 
-// 	err = client.DoTransition(issueIDOrKey, selectedTransition.ID)
-// 	if err != nil {
-// 		log.Printf("Error performing transition: %v", err)
-// 		return
-// 	}
-
-// 	fmt.Printf("✅ Issue %s transitioned to '%s' successfully!\n", issueIDOrKey, selectedTransition.Name)
-// }
-
-// func getCommentsInteractive(client *JiraClient, scanner *bufio.Scanner) {
-// 	fmt.Println("\n--- Get Comments ---")
-
-// 	fmt.Print("Issue ID or Key: ")
-// 	scanner.Scan()
-// 	issueIDOrKey := strings.TrimSpace(scanner.Text())
-
-// 	comments, err := client.GetComments(issueIDOrKey)
-// 	if err != nil {
-// 		log.Printf("Error getting comments: %v", err)
-// 		return
-// 	}
-
-// 	if len(comments) == 0 {
-// 		fmt.Println("No comments found for this issue.")
-// 		return
-// 	}
-
-// 	fmt.Printf("✅ Comments retrieved successfully! Total: %d\n", len(comments))
-// 	for _, c := range comments {
-// 		fmt.Printf("\nCommentID %s\n", c.ID)
-// 		fmt.Printf("Author: %s\n", c.Author)
-// 		fmt.Printf("Created: %s\n", c.Created)
-// 		fmt.Printf("Last Updated: %s\n", c.LastUpdated)
-// 		//          Last Updated: 2025-09-08T11:18:04.666+0200 -> longest field
-// 		fmt.Printf("------------------------------------------\n%s\n\n", c.Body)
-// 	}
-// }
-
-// // I need to later move it out of the options menu, create a flag while starting the application...this would populate the cache as well as get the active sprint tasks for only me (or a specific user: [TODO] later)
+// I need to later move it out of the options menu, create a flag while starting the application...this would populate the cache as well as get the active sprint tasks for only me (or a specific user: [TODO] later)
 
 // func getActiveSprintTasksInteractive(client *JiraClient, scanner *bufio.Scanner) {
 // 	fmt.Println("\n--- Get Active Sprint Tasks ---")
@@ -434,7 +453,10 @@ func main() {
 
 // 	fmt.Printf("Active Sprint: %s (ID: %d)\n", sprintName, sprintID)
 
-// 	issues, err := client.GetMyIssuesInSprint(sprintID)
+// 	projectKey := "dummy"
+// 	sprintID := "dummy"
+// 	assignee := "dummy"
+// 	issues, err := client.GetMyIssuesInActiveSprint(projectKey, sprintID, assignee)
 // 	if err != nil {
 // 		log.Printf("Error getting issues in sprint: %v", err)
 // 		return
