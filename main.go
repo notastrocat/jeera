@@ -71,144 +71,77 @@ func main() {
 		fmt.Printf("Authentication: API Token (Basic)\n\n")
 	}
 
-	{
-		// fmt.Printf("do you know your board ID? (ID or enter 0 for no): ")
-		// if _, err := fmt.Scan(&boardID); err != nil {
-		// 	log.Printf("Invalid input: %v", err)
-		// 	return
-		// } else {
-		// 	if *boardID == 0 {
-		// 		fmt.Printf("please enter your board name: ")
-		// 		if _, err := fmt.Scan(boardName); err != nil {
-		// 			log.Printf("Invalid input: %v", err)
-		// 			return
-		// 		}
-		// 	}
-		// }
-
-		if *boardID == 0 && *boardName == "" {
-			fmt.Println("`board ID` or `board name` is required to proceed.")
-			return
-		}
-
-		var projectKeys []string
-		if *boardID != 0 {
-			var err error
-			projectKeys, err = client.GetProjectKeys(*boardID, projectKeys)
-			if err != nil {
-				log.Printf("Error getting project keys: %v", err)
-				return
-			}
-
-			// needed for JQL at the very least if not for anything else...
-			fmt.Println("Associated Project Keys: -")
-			for i, key := range projectKeys {
-				fmt.Printf("Key %d: %s\n", i+1, key)
-			}
-			// probably select the first entry as the default key for the session...(and maybe ask to change it?)
-			projectKey = projectKeys[0]
-		} else {
-			var err error
-			id, idErr := client.GetBoardID(*boardName)
-			if idErr != nil {
-				log.Printf("Error getting board ID: %v", idErr)
-				return
-			}
-			*boardID = id
-			fmt.Println("Board ID:", *boardID)
-			fmt.Println("Board Name:", *boardName)
-
-			projectKeys, err = client.GetProjectKeys(*boardID, projectKeys)
-			if err != nil {
-				log.Printf("Error getting project keys: %v", err)
-				return
-			}
-
-			// needed for JQL at the very least if not for anything else...
-			fmt.Println("Associated Project Keys: -")
-			for i, key := range projectKeys {
-				fmt.Printf("Key %d: %s\n", i+1, key)
-			}
-			// probably select the first entry as the default key for the session...(and maybe ask to change it?)
-			projectKey = projectKeys[0]
-		}
-
-		activeSprintID, sprintName, err := client.GetActiveSprintID(*boardID)
-		if err != nil {
-			log.Printf("Error getting active sprint ID: %v", err)
-			return
-		}
-		fmt.Printf("Active Sprint: %s (ID: %d)\n", sprintName, activeSprintID)
-
-		fmt.Println("Your issues in the active sprint:-")
-
-		// change the first parameter to some decided name later
-		myIssues, err := client.GetMyIssuesInActiveSprint(projectKey, sprintName, user.Name)
-		if err != nil {
-			log.Printf("Error getting issues in active sprint: %v", err)
-			return
-		}
-
-		var totalStoryPoints float32 = 0.0
-
-		for _, issue := range myIssues {
-			totalStoryPoints += issue.Fields.StoryPoints
-			fmt.Printf("%s\n%s : %.f\n\t%s\n", issue.Key, issue.Fields.Summary, issue.Fields.StoryPoints, issue.Fields.Status.Name)
-			fmt.Printf("--------------------------------\n\n")
-		}
-		fmt.Printf("Total Story Points assigned to you in this sprint: %.f\n\n", totalStoryPoints)
+	if *boardID == 0 && *boardName == "" {
+		fmt.Println("`board ID` or `board name` is required to proceed.")
+		return
 	}
 
-	// scanner := bufio.NewScanner(os.Stdin)
+	var projectKeys []string
+	if *boardID != 0 {
+		var err error
+		projectKeys, err = client.GetProjectKeys(*boardID, projectKeys)
+		if err != nil {
+			log.Printf("Error getting project keys: %v", err)
+			return
+		}
 
-	// for {
-	// 	fmt.Println("Available commands:")
-	// 	fmt.Println("  1. Create issue")
-	// 	fmt.Println("  2. Get issue")
-	// 	fmt.Println("  3. Update issue")
-	// 	fmt.Println("  4. Transition issue")
-	// 	fmt.Println("  5. Get comments")
-	// 	fmt.Println("  6. Bulk create issues")
-	// 	fmt.Println("  7. Get Active Sprint Tasks")
-	// 	fmt.Println("  8. Exit")
-	// 	fmt.Print("\nEnter your choice (1-8): ")
+		// needed for JQL at the very least if not for anything else...
+		fmt.Println("Associated Project Keys: -")
+		for i, key := range projectKeys {
+			fmt.Printf("Key %d: %s\n", i+1, key)
+		}
+		// probably select the first entry as the default key for the session...(and maybe ask to change it?)
+		projectKey = projectKeys[0]
+	} else {
+		var err error
+		id, idErr := client.GetBoardID(*boardName)
+		if idErr != nil {
+			log.Printf("Error getting board ID: %v", idErr)
+			return
+		}
+		*boardID = id
+		fmt.Println("Board ID:", *boardID)
+		fmt.Println("Board Name:", *boardName)
 
-	// 	scanner.Scan()
-	// 	choice := strings.TrimSpace(scanner.Text())
+		projectKeys, err = client.GetProjectKeys(*boardID, projectKeys)
+		if err != nil {
+			log.Printf("Error getting project keys: %v", err)
+			return
+		}
 
-	// 	switch choice {
-	// 	case "1":
-	// 		fmt.Println("not implemented yet")
-	// 		// createIssueInteractive(client, scanner)
-	// 	case "2":
-	// 		fmt.Println("not implemented yet")
-	// 		// getIssueInteractive(client, scanner)
-	// 	case "3":
-	// 		fmt.Println("not implemented yet")
-	// 		// updateIssueInteractive(client, scanner)
-	// 	case "4":
-	// 		fmt.Println("not implemented yet")
-	// 		// doTransitionInteractive(client, scanner)
-	// 	case "5":
-	// 		fmt.Println("not implemented yet")
-	// 		// getCommentsInteractive(client, scanner)
-	// 	case "6":
-	// 		fmt.Println("not implemented yet")
-	// 		// updateIssueInteractive(client, scanner)
-	// 	case "7":
-	// 		fmt.Println("not implemented yet")
-	// 		// getActiveSprintTasksInteractive(client, scanner)
-	// 		// fmt.Println("not implemented yet")
-	// 		// updateIssueInteractive(client, scanner)
-	// 	case "8":
-	// 		fmt.Println("Goodbye!")
-	// 		return
-	// 	default:
-	// 		fmt.Println("Invalid choice. Please enter 1-8.")
-	// 	}
+		// needed for JQL at the very least if not for anything else...
+		fmt.Println("Associated Project Keys: -")
+		for i, key := range projectKeys {
+			fmt.Printf("Key %d: %s\n", i+1, key)
+		}
+		// probably select the first entry as the default key for the session...(and maybe ask to change it?)
+		projectKey = projectKeys[0]
+	}
 
-	// 	fmt.Println()
-	// }
+	activeSprintID, sprintName, err := client.GetActiveSprintID(*boardID)
+	if err != nil {
+		log.Printf("Error getting active sprint ID: %v", err)
+		return
+	}
+	fmt.Printf("Active Sprint: %s (ID: %d)\n", sprintName, activeSprintID)
+
+	fmt.Println("Your issues in the active sprint:-")
+
+	// change the first parameter to some decided name later
+	myIssues, err := client.GetMyIssuesInActiveSprint(projectKey, sprintName, user.Name)
+	if err != nil {
+		log.Printf("Error getting issues in active sprint: %v", err)
+		return
+	}
+
+	var totalStoryPoints float32 = 0.0
+
+	for _, issue := range myIssues {
+		totalStoryPoints += issue.Fields.StoryPoints
+		fmt.Printf("%s\n%s : %.f\n\t%s\n", issue.Key, issue.Fields.Summary, issue.Fields.StoryPoints, issue.Fields.Status.Name)
+		fmt.Printf("--------------------------------\n\n")
+	}
+	fmt.Printf("Total Story Points assigned to you in this sprint: %.f\n\n", totalStoryPoints)
 }
 
 func createIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
