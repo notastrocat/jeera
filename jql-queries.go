@@ -6,6 +6,9 @@ import (
 	"io"
 	"encoding/json"
 	"net/url"
+
+	"jeera/decorators"
+	"jeera/decorators/foreground"
 )
 
 func (client *JiraClient) GetMyIssuesInActiveSprint(projectKey, sprintID, assignee string) ([]Issue, error) {
@@ -13,8 +16,8 @@ func (client *JiraClient) GetMyIssuesInActiveSprint(projectKey, sprintID, assign
 	encodedJQL := url.QueryEscape(jql) // Properly encode the JQL
 
 	if *DEBUGflag {
-		fmt.Printf("JQL Query: %s\n", jql)
-		fmt.Printf("Encoded JQL: %s\n", encodedJQL)
+		fmt.Printf(foreground.YELLOW + "[DEBUG] JQL Query: %s\n" + decorators.RESET_ALL, jql)
+		fmt.Printf(foreground.YELLOW + "[DEBUG] Encoded JQL: %s\n" + decorators.RESET_ALL, encodedJQL)
 	}
 
 	endpoint := fmt.Sprintf("/rest/api/2/search?jql=%s", encodedJQL)
@@ -27,7 +30,7 @@ func (client *JiraClient) GetMyIssuesInActiveSprint(projectKey, sprintID, assign
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf("failed to get issues in sprint: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to get issues in sprint: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
 	}
 
 	var temp struct {
@@ -35,7 +38,7 @@ func (client *JiraClient) GetMyIssuesInActiveSprint(projectKey, sprintID, assign
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&temp); err != nil {
-		return nil, fmt.Errorf("failed to decode response: %v", err)
+		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to decode response: %v" + decorators.RESET_ALL, err)
 	}
 
 	return temp.Issues, nil

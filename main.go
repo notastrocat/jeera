@@ -6,8 +6,11 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 	"strconv"
+	"strings"
+
+	"jeera/decorators"
+	// "jeera/decorators/foreground"
 )
 
 var DEBUGflag = flag.Bool("debug", false, "enable debugging messages for the app")
@@ -49,7 +52,7 @@ func main() {
 
 	// Start interactive CLI
 	if *DEBUGflag {
-		fmt.Println("JIRA Auto - Issue Management Tool (Running in Debug Mode)")
+		fmt.Println("JIRA Auto - Issue Management Tool" + decorators.BOLD + " (Running in Debug Mode)" + decorators.RESET_ALL)
 	} else {
 		fmt.Println("JIRA Auto - Issue Management Tool")
 	}

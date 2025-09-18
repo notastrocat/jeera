@@ -5,6 +5,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"jeera/decorators"
+	"jeera/decorators/foreground"
 	"github.com/joho/godotenv"
 )
 
@@ -20,7 +22,7 @@ type Config struct {
 func LoadConfig() *Config {
 	// Try to load .env file (ignore error if file doesn't exist)
 	if err := loadEnvFile(); err != nil {
-		fmt.Printf("Info: No .env file found, using environment variables only\n")
+		fmt.Printf(foreground.LIGHT_BLUE + "[INFO] No .env file found, using environment variables only\n" + decorators.RESET_ALL)
 	}
 
 	config := &Config{
@@ -54,7 +56,7 @@ func loadEnvFile() error {
 	var lastErr error
 	for _, path := range envPaths {
 		if err := godotenv.Load(path); err == nil {
-			fmt.Printf("Loaded configuration from: %s\n", path)
+			fmt.Printf(foreground.LIGHT_BLUE + "[INFO] Loaded configuration from: %s\n" + decorators.RESET_ALL, path)
 			return nil
 		} else {
 			lastErr = err

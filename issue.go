@@ -6,6 +6,9 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	"jeera/decorators"
+	"jeera/decorators/foreground"
 )
 
 // CreateIssue creates a new JIRA issue
@@ -20,12 +23,12 @@ func (client *JiraClient) CreateIssue(issue *Issue) (*CreateIssueResponse, error
 
 	if resp.StatusCode != http.StatusCreated {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf("failed to create issue: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to create issue: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
 	}
 
 	var result CreateIssueResponse
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		return nil, fmt.Errorf("failed to decode response: %v", err)
+		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to decode response: %v" + decorators.RESET_ALL, err)
 	}
 
 	return &result, nil
@@ -43,12 +46,12 @@ func (client *JiraClient) GetIssue(issueIDOrKey string) (*Issue, error) {
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf("failed to get issue: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to get issue: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
 	}
 
 	var issue Issue
 	if err := json.NewDecoder(resp.Body).Decode(&issue); err != nil {
-		return nil, fmt.Errorf("failed to decode response: %v", err)
+		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to decode response: %v" + decorators.RESET_ALL, err)
 	}
 
 	return &issue, nil
@@ -74,7 +77,7 @@ func (client *JiraClient) UpdateAssignee(issueIDOrKey string, assignee *Assignee
 
 	if resp.StatusCode != http.StatusNoContent {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return fmt.Errorf("failed to update assignee: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+		return fmt.Errorf(foreground.RED + "[ERROR] failed to update assignee: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
 	}
 
 	return nil
@@ -132,7 +135,7 @@ func (client *JiraClient) UpdateIssue(issueIDOrKey string, fields IssueFields) e
 	}
 
 	if *DEBUGflag {
-		fmt.Printf("UpdateIssue request: %+v\n", updateRequest)
+		fmt.Printf(foreground.YELLOW + "[DEBUG] UpdateIssue request: %+v\n" + decorators.RESET_ALL, updateRequest)
 	}
 
 	endpoint := fmt.Sprintf("/rest/api/2/issue/%s", issueIDOrKey)
@@ -145,7 +148,7 @@ func (client *JiraClient) UpdateIssue(issueIDOrKey string, fields IssueFields) e
 
 	if resp.StatusCode != http.StatusNoContent {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return fmt.Errorf("failed to update issue: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+		return fmt.Errorf(foreground.RED + "[ERROR] failed to update issue: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
 	}
 
 	return nil
@@ -162,7 +165,7 @@ func (client *JiraClient) GetTransitions(issueIDOrKey string) ([]Transition, err
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf("failed to get transitions: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to get transitions: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
 	}
 
 	var result []Transition
@@ -176,7 +179,7 @@ func (client *JiraClient) GetTransitions(issueIDOrKey string) ([]Transition, err
 	// see https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group
 
 	if *DEBUGflag {
-		fmt.Println("GetTransitions response:")
+		fmt.Println(foreground.YELLOW + "[DEBUG] GetTransitions response:" + decorators.RESET_ALL)
 		bodyBytes, _ := io.ReadAll(resp.Body)
 		fmt.Println(string(bodyBytes))
 		// Rewind the response body for decoding
@@ -184,12 +187,12 @@ func (client *JiraClient) GetTransitions(issueIDOrKey string) ([]Transition, err
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&temp); err != nil {
-		return nil, fmt.Errorf("failed to decode response: %v", err)
+		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to decode response: %v" + decorators.RESET_ALL, err)
 	}
 
 	if *DEBUGflag {
-		fmt.Printf("Decoded transitions: %+v\n", temp.RawTransitions)
-		fmt.Printf("\n\nchecking value: %s\n\n", temp.RawTransitions[0]["name"])
+		fmt.Printf(foreground.YELLOW + "[DEBUG] Decoded transitions: %+v\n" + decorators.RESET_ALL, temp.RawTransitions)
+		fmt.Printf(foreground.YELLOW + "[DEBUG] \n\nchecking value: %s\n\n" + decorators.RESET_ALL, temp.RawTransitions[0]["name"])
 	}
 
 	for _, t := range temp.RawTransitions {
@@ -219,7 +222,7 @@ func (client *JiraClient) DoTransition(issueIDOrKey, transitionID string) error 
 
 	if resp.StatusCode != http.StatusNoContent {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return fmt.Errorf("failed to do transition: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+		return fmt.Errorf(foreground.RED + "[ERROR] failed to do transition: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
 	}
 
 	return nil
@@ -236,7 +239,7 @@ func (client *JiraClient) GetComments(issueIDOrKey string) ([]Comment, error) {
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf("failed to get comments: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to get comments: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
 	}
 
 	var result []Comment
@@ -245,7 +248,7 @@ func (client *JiraClient) GetComments(issueIDOrKey string) ([]Comment, error) {
 	}
 
 	if *DEBUGflag {
-		fmt.Println("GetComments response:")
+		fmt.Println(foreground.YELLOW + "[DEBUG] GetComments response:" + decorators.RESET_ALL)
 		bodyBytes, _ := io.ReadAll(resp.Body)
 		fmt.Println(string(bodyBytes))
 		// Rewind the response body for decoding
@@ -253,7 +256,7 @@ func (client *JiraClient) GetComments(issueIDOrKey string) ([]Comment, error) {
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&temp); err != nil {
-		return nil, fmt.Errorf("failed to decode response: %v", err)
+		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to decode response: %v" + decorators.RESET_ALL, err)
 	}
 
 	/*

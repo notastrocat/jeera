@@ -1,4 +1,4 @@
-module jira-auto
+module jeera
 
 go 1.25.1
 

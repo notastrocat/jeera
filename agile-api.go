@@ -5,6 +5,9 @@ import (
 	"net/http"
 	"io"
 	"encoding/json"
+
+	"jeera/decorators"
+	"jeera/decorators/foreground"
 )
 
 func (client *JiraClient) GetBoardID(boardName string) (int, error) {
@@ -19,7 +22,7 @@ func (client *JiraClient) GetBoardID(boardName string) (int, error) {
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return 0, fmt.Errorf("failed to get board ID: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+		return 0, fmt.Errorf(foreground.RED + "[ERROR] failed to get board ID: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
 	}
 
 	var temp struct {
@@ -30,11 +33,11 @@ func (client *JiraClient) GetBoardID(boardName string) (int, error) {
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&temp); err != nil {
-		return 0, fmt.Errorf("failed to decode response: %v", err)
+		return 0, fmt.Errorf(foreground.RED + "[ERROR] failed to decode response: %v" + decorators.RESET_ALL, err)
 	}
 
 	if len(temp.Values) == 0 {
-		return 0, fmt.Errorf("no board found with name %s\nBoard names are case sensitive. Please check your board name", boardName)
+		return 0, fmt.Errorf(foreground.RED + "[ERROR] no board found with name %s\nBoard names are case sensitive. Please check your board name" + decorators.RESET_ALL, boardName)
 	}
 
 	// Return the ID of the first matching board
@@ -54,7 +57,7 @@ func (client *JiraClient) GetProjectKeys(boardID int, projectKeys []string) ([]s
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return projectKeys, fmt.Errorf("failed to get project key: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+		return projectKeys, fmt.Errorf(foreground.RED + "[ERROR] failed to get project key: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
 	}
 
 	var temp struct {
@@ -64,11 +67,11 @@ func (client *JiraClient) GetProjectKeys(boardID int, projectKeys []string) ([]s
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&temp); err != nil {
-		return projectKeys, fmt.Errorf("failed to decode response: %v", err)
+		return projectKeys, fmt.Errorf(foreground.RED + "[ERROR] failed to decode response: %v" + decorators.RESET_ALL, err)
 	}
 
 	if len(temp.Values) == 0 {
-		return projectKeys, fmt.Errorf("no project found for board ID %d", boardID)
+		return projectKeys, fmt.Errorf(foreground.RED + "[ERROR] no project found for board ID %d" + decorators.RESET_ALL, boardID)
 	}
 
 	for _, v := range temp.Values {
@@ -90,7 +93,7 @@ func (client *JiraClient) GetActiveSprintID(boardID int) (int, string, error) {
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return 0, "", fmt.Errorf("failed to get active sprint: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+		return 0, "", fmt.Errorf(foreground.RED + "[ERROR] failed to get active sprint: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
 	}
 
 	var temp struct {
@@ -101,11 +104,11 @@ func (client *JiraClient) GetActiveSprintID(boardID int) (int, string, error) {
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&temp); err != nil {
-		return 0, "", fmt.Errorf("failed to decode response: %v", err)
+		return 0, "", fmt.Errorf(foreground.RED + "[ERROR] failed to decode response: %v" + decorators.RESET_ALL, err)
 	}
 
 	if len(temp.Values) == 0 {
-		return 0, "", fmt.Errorf("no active sprints found for board ID %d", boardID)
+		return 0, "", fmt.Errorf(foreground.RED + "[ERROR] no active sprints found for board ID %d" + decorators.RESET_ALL, boardID)
 	}
 
 	// Return the ID of the first active sprint
