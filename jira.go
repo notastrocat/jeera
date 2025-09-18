@@ -27,6 +27,12 @@ func NewJiraClient(config *Config) *JiraClient {
 	}
 }
 
+type User struct {
+	Name         string  `json:"name"`
+	DisplayName  string  `json:"displayName,omitempty"`
+	Email        string  `json:"emailAddress,omitempty"`
+}
+
 // Issue represents a JIRA issue structure
 type Issue struct {
 	ID     string      `json:"id,omitempty"`
@@ -139,6 +145,26 @@ func (client *JiraClient) makeRequest(method, endpoint string, body interface{})
 	}
 
 	return resp, nil
+}
+
+func (client *JiraClient) GetCurrentUser() (*User, error) {
+	resp, err := client.makeRequest("GET", "/rest/api/2/myself", nil)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		return nil, fmt.Errorf("failed to get current user: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+	}
+
+	var user User
+	if err := json.NewDecoder(resp.Body).Decode(&user); err != nil {
+		return nil, fmt.Errorf("failed to decode response: %v", err)
+	}
+
+	return &user, nil
 }
 
 // CreateIssue creates a new JIRA issue
@@ -559,6 +585,11 @@ func (client *JiraClient) GetActiveSprintID(boardID int) (int, string, error) {
 func (client *JiraClient) GetMyIssuesInActiveSprint(projectKey, sprintID, assignee string) ([]Issue, error) {
 	jql := fmt.Sprintf("project = %s AND sprint = \"%s\" AND assignee in (%s)", projectKey, sprintID, assignee)
 	encodedJQL := url.QueryEscape(jql) // Properly encode the JQL
+
+	if *DEBUGflag {
+		fmt.Printf("JQL Query: %s\n", jql)
+		fmt.Printf("Encoded JQL: %s\n", encodedJQL)
+	}
 
 	endpoint := fmt.Sprintf("/rest/api/2/search?jql=%s", encodedJQL)
 
