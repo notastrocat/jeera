@@ -46,7 +46,7 @@ func main() {
 	var get          = flag.Bool("get", false, "Get an existing issue")
 	var update       = flag.Bool("update", false, "Update an existing issue")
 	var transition   = flag.Bool("trans", false, "Transition an existing issue")
-	var getComments  = flag.Bool("get-comments", false, "Get comments of an existing issue")
+	var getComments  = flag.String("comments", "", "Manage comments of an existing issue")
 
 	// Create JIRA client
 	client := NewJiraClient(config)
@@ -55,9 +55,9 @@ func main() {
 
 	// Start interactive CLI
 	if *DEBUGflag {
-		fmt.Println("JIRA Auto - Issue Management Tool" + decorators.BOLD + " (Running in Debug Mode)" + decorators.RESET_ALL)
+		fmt.Println("jeera v2.0" + decorators.BOLD + " (Running in Debug Mode)" + decorators.RESET_ALL)
 	} else {
-		fmt.Println("JIRA Auto - Issue Management Tool")
+		fmt.Println("jeera v2.0")
 	}
 	fmt.Println("=================================")
 
@@ -89,7 +89,7 @@ func main() {
 	// 	return
 	// }
 
-	if *create || *get || *update || *transition || *getComments {
+	if *create || *get || *update || *transition || *getComments != "" {
 		scanner := bufio.NewScanner(os.Stdin)
 
 		if *create {
@@ -104,7 +104,7 @@ func main() {
 		if *transition {
 			doTransitionInteractive(client, scanner)
 		}
-		if *getComments {
+		if *getComments != "" {
 			getCommentsInteractive(client, scanner)
 		}
 	}
