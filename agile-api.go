@@ -7,20 +7,14 @@ import (
 	"encoding/json"
 )
 
-func (client *JiraClient) GetBoardID(boardName string) (int, error) {
-	// "/rest/agile/1.0/board?name=CoreFW_AutoScrum"
+func (client *JiraClient) GetBoardID(boardName string) (struct {
+		ID   int    `json:"id"`
+		Name string `json:"name"`
+	}, error) {
+
+						 // "/rest/agile/1.0/board?name=CoreFW_AutoScrum"
 	endpoint := fmt.Sprintf("/rest/agile/1.0/board?name=%s", boardName)
 
-	resp, err := client.makeRequest("GET", endpoint, nil)
-	if err != nil {
-		return 0, err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		bodyBytes, _ := io.ReadAll(resp.Body)
-		return 0, fmt.Errorf("failed to get board ID: status %d, body: %s", resp.StatusCode, string(bodyBytes))
-	}
 
 	var temp struct {
 		Values []struct {
@@ -29,16 +23,27 @@ func (client *JiraClient) GetBoardID(boardName string) (int, error) {
 		} `json:"values"`
 	}
 
+	resp, err := client.makeRequest("GET", endpoint, nil)
+	if err != nil {
+		return temp.Values[0], err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		return temp.Values[0], fmt.Errorf("failed to get board ID: status %d, body: %s", resp.StatusCode, string(bodyBytes))
+	}
+
 	if err := json.NewDecoder(resp.Body).Decode(&temp); err != nil {
-		return 0, fmt.Errorf("failed to decode response: %v", err)
+		return temp.Values[0], fmt.Errorf("failed to decode response: %v", err)
 	}
 
 	if len(temp.Values) == 0 {
-		return 0, fmt.Errorf("no board found with name %s\nBoard names are case sensitive. Please check your board name", boardName)
+		return temp.Values[0], fmt.Errorf("no board found with name %s\nBoard names are case sensitive. Please check your board name", boardName)
 	}
 
 	// Return the ID of the first matching board
-	return temp.Values[0].ID, nil
+	return temp.Values[0], nil
 }
 
 func (client *JiraClient) GetProjectKeys(boardID int, projectKeys []string) ([]string, error) {

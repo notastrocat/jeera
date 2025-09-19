@@ -40,10 +40,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	var boardID    = flag.Int("board", 0, "JIRA Board ID (required for fetching sprint issues)")
-	var boardName  = flag.String("board-name", "", "JIRA Board Name (if Board ID is not known)")
-
-	var projectKey string
+	var boardID      = flag.Int("board", -1, "JIRA Board ID (required for fetching sprint issues)")
+	var boardName    = flag.String("board-name", "", "JIRA Board Name (if Board ID is not known)")
+	var create       = flag.Bool("create", false, "Create a new issue")
+	var get          = flag.Bool("get", false, "Get an existing issue")
+	var update       = flag.Bool("update", false, "Update an existing issue")
+	var transition   = flag.Bool("trans", false, "Transition an existing issue")
+	var getComments  = flag.Bool("get-comments", false, "Get comments of an existing issue")
 
 	// Create JIRA client
 	client := NewJiraClient(config)
@@ -74,13 +77,44 @@ func main() {
 		fmt.Printf("Authentication: API Token (Basic)\n\n")
 	}
 
-	if *boardID == 0 && *boardName == "" {
-		fmt.Println("`board ID` or `board name` is required to proceed.")
-		return
+	if *boardID >= 0 || *boardName != "" {
+		if *DEBUGflag {
+			fmt.Printf(foreground.YELLOW + "[DEBUG] board ID: %d\n" + decorators.RESET_ALL, *boardID)
+			fmt.Printf(foreground.YELLOW + "[DEBUG] board name: %s\n" + decorators.RESET_ALL, *boardName)
+		}
+		fetchDataFromActiveSprint(user, client, boardID, boardName)
 	}
+	// else if *boardID <= 0 && *boardName == "" {
+	// 	fmt.Println("`board ID` or `board name` is required to proceed.")
+	// 	return
+	// }
 
+	if *create || *get || *update || *transition || *getComments {
+		scanner := bufio.NewScanner(os.Stdin)
+
+		if *create {
+			createIssueInteractive(client, scanner)
+		}
+		if *get {
+			getIssueInteractive(client, scanner)
+		}
+		if *update {
+			updateIssueInteractive(client, scanner)
+		}
+		if *transition {
+			doTransitionInteractive(client, scanner)
+		}
+		if *getComments {
+			getCommentsInteractive(client, scanner)
+		}
+	}
+}
+
+func fetchDataFromActiveSprint(user *User, client *JiraClient, boardID *int, boardName *string) {
 	var projectKeys []string
-	if *boardID != 0 {
+	var projectKey string
+
+	if *boardID >= 0 {
 		var err error
 		projectKeys, err = client.GetProjectKeys(*boardID, projectKeys)
 		if err != nil {
@@ -97,12 +131,14 @@ func main() {
 		projectKey = projectKeys[0]
 	} else {
 		var err error
-		id, idErr := client.GetBoardID(*boardName)
+		boardIDs, idErr := client.GetBoardID(*boardName)
 		if idErr != nil {
 			log.Printf(foreground.RED + "[ERROR] getting board ID: %v" + decorators.RESET_ALL, idErr)
 			return
 		}
-		*boardID = id
+
+		*boardID = boardIDs.ID
+		*boardName = boardIDs.Name
 		fmt.Println("Board ID:", *boardID)
 		fmt.Println("Board Name:", *boardName)
 
