@@ -23,12 +23,12 @@ func (client *JiraClient) CreateIssue(issue *Issue) (*CreateIssueResponse, error
 
 	if resp.StatusCode != http.StatusCreated {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to create issue: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
+		return nil, fmt.Errorf("failed to create issue: status %d, body: %s", resp.StatusCode, string(bodyBytes))
 	}
 
 	var result CreateIssueResponse
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to decode response: %v" + decorators.RESET_ALL, err)
+		return nil, fmt.Errorf("failed to decode response: %v", err)
 	}
 
 	return &result, nil
@@ -46,12 +46,12 @@ func (client *JiraClient) GetIssue(issueIDOrKey string) (*Issue, error) {
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to get issue: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
+		return nil, fmt.Errorf("failed to get issue: status %d, body: %s", resp.StatusCode, string(bodyBytes))
 	}
 
 	var issue Issue
 	if err := json.NewDecoder(resp.Body).Decode(&issue); err != nil {
-		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to decode response: %v" + decorators.RESET_ALL, err)
+		return nil, fmt.Errorf("failed to decode response: %v", err)
 	}
 
 	return &issue, nil
@@ -77,7 +77,7 @@ func (client *JiraClient) UpdateAssignee(issueIDOrKey string, assignee *Assignee
 
 	if resp.StatusCode != http.StatusNoContent {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return fmt.Errorf(foreground.RED + "[ERROR] failed to update assignee: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
+		return fmt.Errorf("failed to update assignee: status %d, body: %s", resp.StatusCode, string(bodyBytes))
 	}
 
 	return nil
@@ -148,7 +148,7 @@ func (client *JiraClient) UpdateIssue(issueIDOrKey string, fields IssueFields) e
 
 	if resp.StatusCode != http.StatusNoContent {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return fmt.Errorf(foreground.RED + "[ERROR] failed to update issue: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
+		return fmt.Errorf("failed to update issue: status %d, body: %s", resp.StatusCode, string(bodyBytes))
 	}
 
 	return nil
@@ -165,7 +165,7 @@ func (client *JiraClient) GetTransitions(issueIDOrKey string) ([]Transition, err
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to get transitions: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
+		return nil, fmt.Errorf("failed to get transitions: status %d, body: %s", resp.StatusCode, string(bodyBytes))
 	}
 
 	var result []Transition
@@ -187,7 +187,7 @@ func (client *JiraClient) GetTransitions(issueIDOrKey string) ([]Transition, err
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&temp); err != nil {
-		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to decode response: %v" + decorators.RESET_ALL, err)
+		return nil, fmt.Errorf("failed to decode response: %v", err)
 	}
 
 	if *DEBUGflag {
@@ -222,7 +222,7 @@ func (client *JiraClient) DoTransition(issueIDOrKey, transitionID string) error 
 
 	if resp.StatusCode != http.StatusNoContent {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return fmt.Errorf(foreground.RED + "[ERROR] failed to do transition: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
+		return fmt.Errorf("failed to do transition: status %d, body: %s", resp.StatusCode, string(bodyBytes))
 	}
 
 	return nil
@@ -239,7 +239,7 @@ func (client *JiraClient) GetComments(issueIDOrKey string) ([]Comment, error) {
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to get comments: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
+		return nil, fmt.Errorf("failed to get comments: status %d, body: %s", resp.StatusCode, string(bodyBytes))
 	}
 
 	var result []Comment
@@ -256,7 +256,7 @@ func (client *JiraClient) GetComments(issueIDOrKey string) ([]Comment, error) {
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&temp); err != nil {
-		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to decode response: %v" + decorators.RESET_ALL, err)
+		return nil, fmt.Errorf("failed to decode response: %v", err)
 	}
 
 	/*

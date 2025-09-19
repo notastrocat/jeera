@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	"jeera/decorators"
-	// "jeera/decorators/foreground"
+	"jeera/decorators/foreground"
 )
 
 var DEBUGflag = flag.Bool("debug", false, "enable debugging messages for the app")
@@ -21,7 +21,7 @@ func main() {
 	
 	// Validate configuration
 	if !config.Validate() {
-		fmt.Println("Error: Missing required configuration!")
+		fmt.Println(foreground.RED + "[ERROR] Missing required configuration!" + decorators.RESET_ALL)
 		fmt.Println("Please create a .env file or set environment variables:")
 		fmt.Println("  JIRA_BASE_URL - Your JIRA instance URL (e.g., https://yourcompany.atlassian.net)")
 		fmt.Println("  JIRA_USERNAME - Your JIRA username/email (e.g., your.email@company.com)")
@@ -61,7 +61,7 @@ func main() {
 	fmt.Printf("Connected to: %s\n", config.BaseURL)
 	user, err := client.GetCurrentUser()
 	if err != nil {
-		log.Printf("Error fetching user details: %v", err)
+		log.Printf(foreground.RED + "[ERROR] fetching user details: %v" + decorators.RESET_ALL, err)
 	}
 	fmt.Printf("Display Name: %s\n", user.DisplayName)
 	fmt.Printf("Name: %s\n", user.Name)
@@ -84,7 +84,7 @@ func main() {
 		var err error
 		projectKeys, err = client.GetProjectKeys(*boardID, projectKeys)
 		if err != nil {
-			log.Printf("Error getting project keys: %v", err)
+			log.Printf(foreground.RED + "[ERROR] getting project keys: %v" + decorators.RESET_ALL, err)
 			return
 		}
 
@@ -99,7 +99,7 @@ func main() {
 		var err error
 		id, idErr := client.GetBoardID(*boardName)
 		if idErr != nil {
-			log.Printf("Error getting board ID: %v", idErr)
+			log.Printf(foreground.RED + "[ERROR] getting board ID: %v" + decorators.RESET_ALL, idErr)
 			return
 		}
 		*boardID = id
@@ -108,7 +108,7 @@ func main() {
 
 		projectKeys, err = client.GetProjectKeys(*boardID, projectKeys)
 		if err != nil {
-			log.Printf("Error getting project keys: %v", err)
+			log.Printf(foreground.RED + "[ERROR] getting project keys: %v" + decorators.RESET_ALL, err)
 			return
 		}
 
@@ -123,7 +123,7 @@ func main() {
 
 	activeSprintID, sprintName, err := client.GetActiveSprintID(*boardID)
 	if err != nil {
-		log.Printf("Error getting active sprint ID: %v", err)
+		log.Printf(foreground.RED + "[ERROR] getting active sprint ID: %v" + decorators.RESET_ALL, err)
 		return
 	}
 	fmt.Printf("Active Sprint: %s (ID: %d)\n", sprintName, activeSprintID)
@@ -133,7 +133,7 @@ func main() {
 	// change the first parameter to some decided name later
 	myIssues, err := client.GetMyIssuesInActiveSprint(projectKey, sprintName, user.Name)
 	if err != nil {
-		log.Printf("Error getting issues in active sprint: %v", err)
+		log.Printf(foreground.RED + "[ERROR] getting issues in active sprint: %v" + decorators.RESET_ALL, err)
 		return
 	}
 
@@ -181,7 +181,7 @@ func createIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
 
 	result, err := client.CreateIssue(issue)
 	if err != nil {
-		log.Printf("Error creating issue: %v", err)
+		log.Printf(foreground.RED + "[ERROR] creating issue: %v" + decorators.RESET_ALL, err)
 		return
 	}
 
@@ -199,7 +199,7 @@ func getIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
 
 	issue, err := client.GetIssue(issueIDOrKey)
 	if err != nil {
-		log.Printf("Error getting issue: %v", err)
+		log.Printf(foreground.RED + "[ERROR] getting issue: %v" + decorators.RESET_ALL, err)
 		return
 	}
 
@@ -259,7 +259,7 @@ func updateIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
 	}
 	if storyPoints != "" {
 		if sp, err := strconv.ParseFloat(storyPoints, 32); err != nil {
-			fmt.Printf("Invalid story points value: %v\n", err)
+			fmt.Printf(foreground.RED + "[ERROR] Invalid story points value: %v\n" + decorators.RESET_ALL, err)
 		} else {
 			fields.StoryPoints = float32(sp)
 		}
@@ -269,7 +269,7 @@ func updateIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
 		tmpAssignee.Name = assignee
 
 		if err := client.UpdateAssignee(issueIDOrKey, tmpAssignee); err != nil {
-			log.Printf("Error updating assignee: %v", err)
+			log.Printf(foreground.RED + "[ERROR] updating assignee: %v" + decorators.RESET_ALL, err)
 			return
 		}
 		fmt.Printf("✅ Issue %s assigned to %s successfully!\n", issueIDOrKey, assignee)
@@ -282,7 +282,7 @@ func updateIssueInteractive(client *JiraClient, scanner *bufio.Scanner) {
 
 	err := client.UpdateIssue(issueIDOrKey, fields)
 	if err != nil {
-		log.Printf("Error updating issue: %v", err)
+		log.Printf(foreground.RED + "[ERROR] updating issue: %v" + decorators.RESET_ALL, err)
 		return
 	}
 
@@ -299,7 +299,7 @@ func doTransitionInteractive(client *JiraClient, scanner *bufio.Scanner) {
 	// Fetch available transitions
 	transitions, err := client.GetTransitions(issueIDOrKey)
 	if err != nil {
-		log.Printf("Error fetching transitions: %v", err)
+		log.Printf(foreground.RED + "[ERROR] fetching transitions: %v" + decorators.RESET_ALL, err)
 		return
 	}
 
@@ -319,7 +319,7 @@ func doTransitionInteractive(client *JiraClient, scanner *bufio.Scanner) {
 	var choice int
 	_, err = fmt.Sscanf(choiceStr, "%d", &choice)
 	if err != nil || choice < 1 || choice > len(transitions) {
-		fmt.Println("Invalid choice.")
+		fmt.Println(foreground.RED + "[ERROR] Invalid choice." + decorators.RESET_ALL)
 		return
 	}
 
@@ -327,7 +327,7 @@ func doTransitionInteractive(client *JiraClient, scanner *bufio.Scanner) {
 
 	err = client.DoTransition(issueIDOrKey, selectedTransition.ID)
 	if err != nil {
-		log.Printf("Error performing transition: %v", err)
+		log.Printf(foreground.RED + "[ERROR] performing transition: %v" + decorators.RESET_ALL, err)
 		return
 	}
 
@@ -343,7 +343,7 @@ func getCommentsInteractive(client *JiraClient, scanner *bufio.Scanner) {
 
 	comments, err := client.GetComments(issueIDOrKey)
 	if err != nil {
-		log.Printf("Error getting comments: %v", err)
+		log.Printf(foreground.RED + "[ERROR] getting comments: %v" + decorators.RESET_ALL, err)
 		return
 	}
 

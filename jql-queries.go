@@ -30,7 +30,7 @@ func (client *JiraClient) GetMyIssuesInActiveSprint(projectKey, sprintID, assign
 
 	if resp.StatusCode != http.StatusOK {
 		bodyBytes, _ := io.ReadAll(resp.Body)
-		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to get issues in sprint: status %d, body: %s" + decorators.RESET_ALL, resp.StatusCode, string(bodyBytes))
+		return nil, fmt.Errorf("failed to get issues in sprint: status %d, body: %s", resp.StatusCode, string(bodyBytes))
 	}
 
 	var temp struct {
@@ -38,7 +38,7 @@ func (client *JiraClient) GetMyIssuesInActiveSprint(projectKey, sprintID, assign
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&temp); err != nil {
-		return nil, fmt.Errorf(foreground.RED + "[ERROR] failed to decode response: %v" + decorators.RESET_ALL, err)
+		return nil, fmt.Errorf("failed to decode response: %v", err)
 	}
 
 	return temp.Issues, nil
